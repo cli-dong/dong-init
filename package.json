@@ -1,18 +1,23 @@
 {
   "name": "dong-init",
-  "description": "initialize scaffolds for web, spm, seajs etc",
   "version": "0.0.0",
-  "homepage": "https://github.com/crossjs/dong-init",
-  "author": {
-    "name": "crossjs",
-    "email": "liwenfu@crossjs.com"
+  "description": "initialize scaffolds for web, spm, seajs etc",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/crossjs/dong-init.git"
   },
-  "bugs": {
-    "url": "https://github.com/crossjs/dong-init/issues"
+  "keywords": [
+    "web",
+    "spm",
+    "seajs",
+    "scaffolds"
+  ],
+  "author": {
+    "name": "crossjs",
+    "email": "liwenfu@crossjs.com"
   },
   "licenses": [
     {
@@ -20,12 +25,10 @@
       "url": "https://github.com/crossjs/dong-init/blob/master/LICENSE-MIT"
     }
   ],
-  "engines": {
-    "node": ">= 0.8.0"
+  "bugs": {
+    "url": "https://github.com/crossjs/dong-init/issues"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "homepage": "https://github.com/crossjs/dong-init",
   "dependencies": {
     "chalk": "^0.5.1",
     "extend": "^2.0.0",
@@ -43,11 +46,5 @@
     "spm-deps": "^0.0.2",
     "through2": "^0.6.3",
     "vinyl-fs": "^1.0.0"
-  },
-  "devDependencies": {},
-  "keywords": [
-    "spm",
-    "seajs",
-    "scaffolds"
-  ]
+  }
 }
