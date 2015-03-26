@@ -1,6 +1,6 @@
 {
   "name": "dong-init",
-  "description": "A web server, transport `CommonJS` module dynamically for `SeaJS` environment.",
+  "description": "initialize scaffolds for web, spm, seajs etc",
   "version": "0.0.0",
   "homepage": "https://github.com/crossjs/dong-init",
   "author": {
