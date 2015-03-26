@@ -1,0 +1,41 @@
+{
+  "name": "<%= appname %>",
+  "version": "<%= version %>",
+  "description": "<%= description %>",
+  "author": {
+    "name": "<%= user.name %>",
+    "email": "<%= user.email %>"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-sass": "^0.8.1",
+    "grunt-contrib-uglify": "^0.6.0",
+    "grunt-exec": "^0.4.6",
+    "grunt-jsdoc": "^0.5.7",
+    "load-grunt-tasks": "^0.6.0",
+    "time-grunt": "^1.0.0"
+  },
+  "spm": {
+    "main": "app/index/index.js",
+    "output": ["app/**/index.js"],
+    "dependencies": {
+    },
+    "devDependencies": {
+      "seajs-debug": "1.1.1",
+      "seajs-style": "1.1.0",
+      "seajs-wrap": "1.0.2",
+      "seajs-text": "1.1.0"
+    },
+    "buildArgs": "--include all --idleading {{name}}"
+  },
+  "dong": {
+    "root": ".",
+    "host": "127.0.0.1",
+    "port": 9527,
+    "mock": "api",
+    "open": false
+  }
+}
