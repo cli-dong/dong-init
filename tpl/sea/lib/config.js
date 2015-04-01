@@ -1,5 +1,9 @@
 (function(window, seajs, document) {
 
+  /**
+   * IE9+, chrome, firefox, etc.
+   */
+
   'use strict';
 
   if (!seajs) {
@@ -34,28 +38,34 @@
   var map = [];
 
   if (debug) {
+    document.title = '[D] ' + document.title;
     // debug 模式
     (function(plugins){
       if (!plugins || !plugins.length) {
         return;
       }
 
-      var _use = seajs.use;
-      var i = 0, n = plugins.length;
+      var seajsUse = seajs.use;
+      var useQueue = [];
 
+      // 暂存 use 信息
       seajs.use = function() {
-        var args = Array.prototype.slice.call(arguments);
-
-        var interval = setInterval(function() {
-          if (i === n) {
-            clearInterval(interval);
-            _use.apply(null, args);
-            // 归位
-            seajs.use = _use;
-            _use = null;
-          }
-        }, 0);
+        useQueue.push(arguments);
       };
+
+      function boot() {
+        var args;
+
+        while ((args = useQueue.shift())) {
+          seajsUse.apply(null, args);
+        }
+
+        // 完璧归赵
+        seajs.use = seajsUse;
+      }
+
+      var i = 0;
+      var n = plugins.length;
 
       function addScript(url, next) {
         var script = document.createElement('script');
@@ -65,6 +75,8 @@
           script.onload = script.onerror = script.onreadystatechange = null;
           if (i < n) {
             next();
+          } else {
+            boot();
           }
         }
 
@@ -75,7 +87,7 @@
             if (/loaded|complete/.test(script.readyState)) {
               onload();
             }
-          }
+          };
         }
 
         document.head.appendChild(script);

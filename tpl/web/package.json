@@ -29,7 +29,7 @@
       "seajs-wrap": "1.0.2",
       "seajs-text": "1.1.0"
     },
-    "buildArgs": "--include all --idleading {{name}}"
+    "buildArgs": "--sea all --skip source-map --idleading /{{name}}"
   },
   "dong": {
     "root": ".",
