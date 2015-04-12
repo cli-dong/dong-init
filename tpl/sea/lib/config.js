@@ -1,9 +1,5 @@
 (function(window, seajs, document) {
 
-  /**
-   * IE9+, chrome, firefox, etc.
-   */
-
   'use strict';
 
   if (!seajs) {
@@ -101,7 +97,7 @@
   } else {
     map.push(function(url) {
       // 仅重定向 app 目录
-      return addParam(url.replace('/<%= appname %>/app/', '/<%= appname %>/dist/<%= appname %>/app/'), '<%= version %>');
+      return addParam(addParam(url.replace('/<%= appname %>/app/', '/<%= appname %>/dist/<%= appname %>/app/'), '<%= version %>'), '<%= revision %>');
     });
   }
 
