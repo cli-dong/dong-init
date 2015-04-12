@@ -66,7 +66,7 @@
 
       var i = 0;
       var n = plugins.length;
-
+      var head = document.head || document.getElementsByTagName('HEAD')[0] || document.documentElement;
       function addScript(url, next) {
         var script = document.createElement('script');
         script.src = url;
@@ -90,7 +90,7 @@
           };
         }
 
-        document.head.appendChild(script);
+        head.appendChild(script);
       }
 
       // 确保加载顺序
