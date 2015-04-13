@@ -1,6 +1,6 @@
 {
   "name": "dong-init",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "initialize scaffolds for web, spm, seajs etc",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

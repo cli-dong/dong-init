@@ -2,16 +2,10 @@
 
   'use strict';
 
+  // App Version: <%= version %>
+
   if (!seajs) {
     return;
-  }
-
-  function addParam(url, param) {
-    if (!param) {
-      return url;
-    }
-
-    return url + (url.indexOf('?') === -1 ? '?' : '&') + param;
   }
 
   // debug 开关
@@ -32,6 +26,9 @@
 
   // 映射表
   var map = [];
+
+  // 保存 id 与真实地址映射
+  var idsMap = {};
 
   if (debug) {
     document.title = '[D] ' + document.title;
@@ -63,6 +60,7 @@
       var i = 0;
       var n = plugins.length;
       var head = document.head || document.getElementsByTagName('HEAD')[0] || document.documentElement;
+
       function addScript(url, next) {
         var script = document.createElement('script');
         script.src = url;
@@ -97,7 +95,29 @@
   } else {
     map.push(function(url) {
       // 仅重定向 app 目录
-      return addParam(addParam(url.replace('/<%= appname %>/app/', '/<%= appname %>/dist/<%= appname %>/app/'), '<%= version %>'), '<%= revision %>');
+      return url.replace('/<%= appname %>/app/', '/<%= appname %>/dist/<%= appname %>/app/');
+    });
+
+    // 处理 md5 串
+    seajs.on('resolve', function(a) {
+      var uri;
+      var query;
+
+      a.id = a.id.replace(/\?[0-9a-f]{32}$/, function(all) {
+        query = all;
+        return '';
+      });
+
+      if (query) {
+        uri = seajs.resolve(a.id);
+        idsMap[uri] = uri + query;
+      }
+    });
+
+    seajs.on('request', function(a) {
+      if (a.uri in idsMap) {
+        a.requestUri = idsMap[a.uri];
+      }
     });
   }
 
