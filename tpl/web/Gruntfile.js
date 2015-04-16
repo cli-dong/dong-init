@@ -41,10 +41,6 @@ module.exports = function(grunt) {
       }
     },
 
-    exec: {
-      'spm-build': 'spm build'
-    },
-
     sass: {
       theme: {
         options: {
@@ -90,11 +86,10 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('build-theme', ['clean', 'sass']);
-  grunt.registerTask('build-app', ['exec']);
   grunt.registerTask('build-lib', ['uglify']);
 
   grunt.registerTask('test', ['jshint']);
-  grunt.registerTask('build', ['build-theme', 'build-app', 'build-lib']);
+  grunt.registerTask('build', ['build-theme', 'build-lib']);
   grunt.registerTask('doc', ['clean:doc', 'jsdoc']);
 
   grunt.registerTask('default', ['test', 'build', 'doc']);

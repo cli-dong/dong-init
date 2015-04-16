@@ -97,13 +97,24 @@
       // 仅重定向 app 目录
       return url.replace('/<%= appname %>/app/', '/<%= appname %>/dist/<%= appname %>/app/');
     });
+  }
 
+  seajs.config({
+    base: '<%= base %>',
+    alias: {
+      <%= alias %>
+    },
+    map: map,
+    debug: debug
+  });
+
+  if (!debug) {
     // 处理 md5 串
     seajs.on('resolve', function(a) {
       var uri;
       var query;
 
-      a.id = a.id.replace(/\?[0-9a-f]{32}$/, function(all) {
+      a.id = a.id.replace(/\?[0-9a-f]{8}$/, function(all) {
         query = all;
         return '';
       });
@@ -119,15 +130,20 @@
         a.requestUri = idsMap[a.uri];
       }
     });
-  }
 
-  seajs.config({
-    base: '<%= base %>',
-    alias: {
-      <%= alias %>
-    },
-    map: map,
-    debug: debug
-  });
+    (function(md5Map) {
+      var id;
+      var uri;
+
+      for (id in md5Map) {
+        if (md5Map.hasOwnProperty(id)) {
+          uri = seajs.resolve(id);
+          idsMap[uri] = uri + '?' + md5Map[id];
+        }
+      }
+    })({
+      <%= md5Map %>
+    });
+  }
 
 })(this, this.seajs, this.document);

@@ -13,7 +13,6 @@
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-sass": "^0.8.1",
     "grunt-contrib-uglify": "^0.6.0",
-    "grunt-exec": "^0.4.6",
     "grunt-jsdoc": "^0.5.7",
     "load-grunt-tasks": "^0.6.0",
     "time-grunt": "^1.0.0"
@@ -28,8 +27,7 @@
       "seajs-style": "1.1.0",
       "seajs-wrap": "1.0.2",
       "seajs-text": "1.1.0"
-    },
-    "buildArgs": "--sea all --skip source-map --idleading /{{name}}"
+    }
   },
   "dong": {
     "root": ".",

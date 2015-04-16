@@ -32,6 +32,7 @@ $ dong serve
 ## 构建
 
 ```bash
+$ dong build
 $ grunt build
 ```
 
