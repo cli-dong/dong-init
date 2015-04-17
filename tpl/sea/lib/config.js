@@ -109,21 +109,6 @@
   });
 
   if (!debug) {
-    // 处理 md5 串
-    seajs.on('resolve', function(a) {
-      var uri;
-      var query;
-
-      a.id = a.id.replace(/\?[0-9a-f]{8}$/, function(all) {
-        query = all;
-        return '';
-      });
-
-      if (query) {
-        uri = seajs.resolve(a.id);
-        idsMap[uri] = uri + query;
-      }
-    });
 
     seajs.on('request', function(a) {
       if (a.uri in idsMap) {
@@ -131,6 +116,7 @@
       }
     });
 
+    // 处理 md5 串
     (function(md5Map) {
       var id;
       var uri;
@@ -141,6 +127,8 @@
           idsMap[uri] = uri + '?' + md5Map[id];
         }
       }
+
+      md5Map = null;
     })({
       <%= md5Map %>
     });
