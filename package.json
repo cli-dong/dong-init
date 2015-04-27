@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/crossjs/dong-init",
   "dependencies": {
-    "chalk": "^0.5.1",
+    "dong-deps": "^0.0.2",
     "extend": "^2.0.0",
     "gulp-template": "^3.0.0",
     "handlebars": "^1.3.0",
@@ -38,7 +38,7 @@
     "package": "^1.0.1",
     "semver": "^4.3.1",
     "shelljs": "^0.3.0",
-    "dong-deps": "^0.0.2",
+    "spm-log": "^0.1.2",
     "vinyl-fs": "^1.0.0"
   }
 }

@@ -1,0 +1,21 @@
+<div class="{{classPrefix}}">
+<h1>
+  <a title="返回主页" href="/">{{title}}</a>
+</h1>
+{{#if authed}}
+<div class="wrapper">
+  <ul>
+    {{#if userdata}}
+      <li class="route-me">
+        <a href="javascript:;" data-role="me">{{userdata.nick_name}}</a>
+      </li>
+    {{/if}}
+    {{#each routes}}
+      <li class="route-{{route}}" data-route="{{route}}">
+        <a href="/#/{{route}}">{{title}}</a>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+{{/if}}
+</div>

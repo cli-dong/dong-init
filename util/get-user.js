@@ -1,5 +1,6 @@
 'use strict'
 
+var log = require('spm-log')
 var shell = require('shelljs')
 
 module.exports = function user() {
@@ -8,7 +9,7 @@ module.exports = function user() {
   }).output.trim()
 
   if (check.indexOf('\'git\' ') === 0) {
-    console.warn('Please install git <http://git-scm.com/> first!')
+    log.warn('init', 'Please install git <http://git-scm.com/> first!')
     process.exit(0)
   }
 

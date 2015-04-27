@@ -1,0 +1,14 @@
+<ul class="nav">
+  {{#each folders}}
+    <li class="folder" data-folder="{{@index}}">
+      <a class="iconfont iconfont-{{icon}}" href="/#/{{@index}}">{{title}}</a>
+      <ul class="routes">
+        {{#each routes}}
+          <li class="route-{{route}}" data-route="{{route}}">
+            <a href="/#/{{route}}">{{title}}</a>
+          </li>
+        {{/each}}
+      </ul>
+    </li>
+  {{/each}}
+</ul>
