@@ -2,7 +2,6 @@
 
 module.exports = function(util) {
 
-
   /**
    * @constant {string} SITE_TITLE
    */
@@ -94,13 +93,13 @@ module.exports = function(util) {
    * @constant {object} LOG_TYPES 日志类型
    */
   util.LOG_TYPES = {
-    '1': '赠送物品',
-    '2': '使用物品',
-    '3': '打开礼包',
-    '4': '升级送抽奖券',
-    '5': '签到送花',
-    '6': '系统发放',
-    '7': '管理员添加'
+    '1': '接受赠送物品',
+    '2': '业务系统发放',
+    '3': '管理员发放',
+    '4': '业务系统删除',
+    '5': '管理员删除',
+    '6': '赠送物品',
+    '7': '使用物品'
   };
 
   /**
@@ -162,5 +161,20 @@ module.exports = function(util) {
       route: 'logout',
       title: '退出'
     }];
+
+  /**
+   * @constant {object}  UPLOAD_SERVER 上传服务配置
+   */
+  util.UPLOAD_SERVER = JSON.stringify({
+    locale: {
+      host: util.API_URL,
+      session: 'm/fsession',
+      // 存放路径
+      path: '/pack_pic'
+    },
+    remote: {
+      host: util.CS_API_URL
+    }
+  });
 
 };
