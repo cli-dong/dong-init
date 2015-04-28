@@ -42,7 +42,7 @@ module.exports = function(util) {
         var matched = data.url.match(/(?:https?:)?\/\/([^\/]+)(\/.+)/i);
         data.headers = {
           authorization: util.auth.getAuthentization(
-            data.type, matched[1], matched[2]
+            data.type, matched[2], matched[1]
           )
         };
       }
