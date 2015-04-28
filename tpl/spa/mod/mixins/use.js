@@ -45,7 +45,7 @@ module.exports = function(util) {
         recycle = cached[id]();
       } else {
         // app/**/index
-        window.seajs.use('/static/app/' + id + '/index.js');
+        window.seajs.use('app/' + id + '/index.js');
       }
     }
   };
