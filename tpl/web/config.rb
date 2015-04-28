@@ -1,5 +1,5 @@
 Encoding.default_external = "utf-8"
-http_path = "/<%= appname %>"
+http_path = ""
 css_dir = "theme/default/css"
 sass_dir = "theme/default/scss"
 images_dir = "theme/default/img"
