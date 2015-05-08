@@ -170,7 +170,9 @@ module.exports = function(util) {
       host: util.API_URL,
       session: 'm/fsession',
       // 存放路径
-      path: '/pack_pic'
+      formData: {
+        path: '/pack_pic'
+      }
     },
     remote: {
       host: util.CS_API_URL
