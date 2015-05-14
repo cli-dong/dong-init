@@ -41,7 +41,7 @@
   "dong": {
     "root": ".",
     "host": "127.0.0.1",
-    "port": 9527,
+    "port": 80,
     "mock": "api",
     "open": false
   }

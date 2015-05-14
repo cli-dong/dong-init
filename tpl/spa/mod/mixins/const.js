@@ -1,30 +1,34 @@
 'use strict';
 
+/**
+ * 注意，下文中 `xxx` 需根据实际情况修改。
+ */
+
 module.exports = function(util) {
 
   /**
    * @constant {string} SITE_TITLE
    */
-  util.SITE_TITLE = '背包管理系统';
+  util.SITE_TITLE = 'XXX 管理系统';
 
   /**
    * @constant {string} API_URL
    *
-   * 开发：http://pack.dev.web.nd
+   * 开发：http://xxx.dev.web.nd
    * 测试：
-   * 生产：http://pack.web.sdp.101.com
+   * 生产：http://xxx.web.sdp.101.com
    */
   util.API_URL = (function() {
     switch (location.host) {
-      case 'pack-admin.dev.web.nd':
+      case 'xxx-admin.dev.web.nd':
       case '192.168.57.12':
       case 'localhost':
-        return 'http://pack.dev.web.nd';
-      case 'pack-admin.debug.web.nd':
-        return 'http://pack.debug.web.nd';
-      case 'pack-admin.web.sdp.101.com':
-      case 'pack-admin_b.web.sdp.101.com':
-        return 'http://pack.web.sdp.101.com';
+        return 'http://xxx.dev.web.nd';
+      case 'xxx-admin.debug.web.nd':
+        return 'http://xxx.debug.web.nd';
+      case 'xxx-admin.web.sdp.101.com':
+      case 'xxx-admin_b.web.sdp.101.com':
+        return 'http://xxx.web.sdp.101.com';
       default:
         return '';
     }
@@ -35,16 +39,16 @@ module.exports = function(util) {
    */
   util.UC_API_URL = (function() {
     switch (location.host) {
-      case 'pack-admin.dev.web.nd':
+      case 'xxx-admin.dev.web.nd':
       case '192.168.57.12':
       case 'localhost':
         return 'https://aqapi.101.com';
         // return 'http://api.account.service.debug.sdp.nd';
-      case 'pack-admin.debug.web.nd':
+      case 'xxx-admin.debug.web.nd':
         return 'https://aqapi.101.com';
         // return 'http://101uccenter.debug.web.nd';
-      case 'pack-admin.web.sdp.101.com':
-      case 'pack-admin_b.web.sdp.101.com':
+      case 'xxx-admin.web.sdp.101.com':
+      case 'xxx-admin_b.web.sdp.101.com':
         return 'https://aqapi.101.com';
         // return 'https://aqapi.101.com';
       default:
@@ -57,16 +61,16 @@ module.exports = function(util) {
    */
   util.CS_API_URL = (function() {
     switch (location.host) {
-      case 'pack-admin.dev.web.nd':
+      case 'xxx-admin.dev.web.nd':
       case '192.168.57.12':
       case 'localhost':
         return 'http://cs.101.com';
         // return 'http://sdpcs.dev.web.nd';
-      case 'pack-admin.debug.web.nd':
+      case 'xxx-admin.debug.web.nd':
         return 'http://cs.101.com';
         // return 'http://sdpcs.dev.web.nd';
-      case 'pack-admin.web.sdp.101.com':
-      case 'pack-admin_b.web.sdp.101.com':
+      case 'xxx-admin.web.sdp.101.com':
+      case 'xxx-admin_b.web.sdp.101.com':
         return 'http://cs.101.com';
         // return 'http://cs.101.com';
       default:
@@ -171,7 +175,7 @@ module.exports = function(util) {
       session: 'm/fsession',
       // 存放路径
       formData: {
-        path: '/pack_pic'
+        path: '/xxx_pic'
       }
     },
     remote: {

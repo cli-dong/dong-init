@@ -14,30 +14,9 @@ util.ready(function() {
 
       plugins: [Validator],
 
-      pluginCfg: {
-        Validator: {
-          listeners: {
-            start: function() {
-              var plugin = this;
-
-              plugin.on('export', function(instance) {
-                // 异步，添加到队列
-                plugin.host.queue.use(function(next) {
-                  instance.execute(function(err) {
-                    if (!err) {
-                      next();
-                    }
-                  });
-                });
-              });
-            }
-          }
-        }
-      },
-
       fields: [{
         name: 'login_name',
-        value: '980071',
+        value: '980071@nd',
         attrs: {
           placeholder: '帐号',
           maxlength: 32,
@@ -46,7 +25,6 @@ util.ready(function() {
         }
       }, {
         name: 'password',
-        // label: '密码',
         type: 'password',
         value: '123456',
         attrs: {
@@ -63,16 +41,16 @@ util.ready(function() {
         role: 'form-submit'
       }],
 
+      outFilter: function(data) {
+        data.password = md5(data.password);
+        return data;
+      },
+
       parentNode: '#main'
     })
     .on('formSubmit', function() {
-      var that = this;
       // 调用队列
-      this.queue.run(function() {
-        var data = that.get('dataParser').call(that);
-
-        data.password = md5(data.password);
-
+      this.submit(function(data) {
         ucTokenModel.POST({
             data: data
           })
