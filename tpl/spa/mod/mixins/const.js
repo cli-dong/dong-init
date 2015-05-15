@@ -30,7 +30,7 @@ module.exports = function(util) {
       case 'xxx-admin_b.web.sdp.101.com':
         return 'http://xxx.web.sdp.101.com';
       default:
-        return '';
+        return '//' + location.host;
     }
   })();
 
@@ -52,7 +52,7 @@ module.exports = function(util) {
         return 'https://aqapi.101.com';
         // return 'https://aqapi.101.com';
       default:
-        return '';
+        return '//' + location.host;
     }
   })();
 
@@ -74,7 +74,7 @@ module.exports = function(util) {
         return 'http://cs.101.com';
         // return 'http://cs.101.com';
       default:
-        return '';
+        return '//' + location.host;
     }
   })();
 
