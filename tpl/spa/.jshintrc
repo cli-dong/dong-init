@@ -10,6 +10,9 @@
   "expr": true,
   "forin": false,
   "freeze": false,
+  "globals": {
+    "JSON": false
+  },
   "immed": true,
   "indent": 2,
   "latedef": true,
