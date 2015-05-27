@@ -1,5 +1,5 @@
 /*
- * dong-serve
+ * dong-init
  * https://github.com/crossjs/dong-init
  *
  * Copyright (c) 2015 crossjs

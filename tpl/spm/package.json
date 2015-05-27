@@ -1,0 +1,27 @@
+{
+  "name": "<%= appname %>",
+  "version": "<%= version %>",
+  "description": "<%= description %>",
+  "keywords": [],
+  "homepage": "https://github.com/ndfront/<%= appname %>",
+  "author": {
+    "name": "<%= user.name %>",
+    "email": "<%= user.email %>"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ndfront/<%= appname %>.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ndfront/<%= appname %>/issues"
+  },
+  "licenses": "MIT",
+  "devDependencies": {},
+  "spm": {
+    "main": "index.js",
+    "dependencies": {},
+    "devDependencies": {
+      "expect.js": "0.3.1"
+    }
+  }
+}
