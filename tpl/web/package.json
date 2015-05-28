@@ -13,8 +13,6 @@
     "output": ["app/**/index.js"],
     "dependencies": {},
     "devDependencies": {
-      "seajs-debug": "1.1.1",
-      "seajs-style": "1.1.0",
       "seajs-wrap": "1.0.2",
       "seajs-text": "1.1.0"
     }

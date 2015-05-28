@@ -2,6 +2,8 @@
 
 module.exports = function(util) {
   require('./dollar')(util);
+  require('./session')(util);
+  require('./storage')(util);
   require('./const')(util);
   require('./auth')(util);
   require('./user')(util);

@@ -25,6 +25,7 @@
       "nd-overlay": "1.0.0",
       "nd-restful": "1.0.0",
       "nd-router": "1.0.0",
+      "nd-storage": "1.0.0",
       "nd-template": "1.0.0",
       "nd-user": "1.0.0",
       "nd-validator": "1.0.0",
@@ -32,8 +33,6 @@
       "source-map": "1.0.2"
     },
     "devDependencies": {
-      "seajs-debug": "1.1.1",
-      "seajs-style": "1.1.0",
       "seajs-wrap": "1.0.2",
       "seajs-text": "1.1.0"
     }
