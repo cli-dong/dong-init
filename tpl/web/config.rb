@@ -1,6 +1,10 @@
 Encoding.default_external = "utf-8"
-http_path = ""
-css_dir = "theme/default/css"
+environment = :production
+output_style = :compressed
+sourcemap = true
+relative_assets = true
+http_path = "./"
 sass_dir = "theme/default/scss"
+css_dir = "theme/default/css"
 images_dir = "theme/default/img"
 javascripts_dir = "theme/default/js"
