@@ -9,24 +9,28 @@ var util = require('../../mod/util');
 var ucTokenModel = require('../../mod/model/uc/token');
 
 util.ready(function() {
+
+  var awaiting;
+
   var instance = new Form({
       className: 'ui-form-login',
-
       plugins: [Validator],
 
       fields: [{
         name: 'login_name',
-        value: '980071@nd',
         attrs: {
           placeholder: '帐号',
-          maxlength: 32,
+          maxlength: 41,
           required: 'required',
+          pattern: '^[_0-9a-zA-Z]{1,20}@[_0-9a-zA-Z]{1,20}$',
           'data-display': '帐号'
+        },
+        messages: {
+          pattern: '格式：用户@组织'
         }
       }, {
         name: 'password',
         type: 'password',
-        value: '123456',
         attrs: {
           placeholder: '密码',
           maxlength: 32,
@@ -49,8 +53,14 @@ util.ready(function() {
       parentNode: '#main'
     })
     .on('formSubmit', function() {
-      // 调用队列
+
       this.submit(function(data) {
+        if (awaiting) {
+          return;
+        }
+
+        awaiting = true;
+
         ucTokenModel.POST({
             data: data
           })
@@ -62,8 +72,12 @@ util.ready(function() {
           })
           .fail(function(error) {
             Alert.show(error);
+          })
+          .always(function() {
+            awaiting = false;
           });
       });
+
       // 阻止默认事件发生
       return false;
     })

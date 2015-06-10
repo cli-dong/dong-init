@@ -9,6 +9,7 @@ module.exports = function(util) {
   require('./user')(util);
   require('./route')(util);
   require('./use')(util);
+  require('./error')(util);
   require('./ajax')(util);
   require('./rest')(util);
   require('./ready')(util);

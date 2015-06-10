@@ -94,77 +94,24 @@ module.exports = function(util) {
   util.TIME_FORMAT = 'hh:mm:ss';
 
   /**
-   * @constant {object} LOG_TYPES 日志类型
-   */
-  util.LOG_TYPES = {
-    '1': '接受赠送物品',
-    '2': '业务系统发放',
-    '3': '管理员发放',
-    '4': '业务系统删除',
-    '5': '管理员删除',
-    '6': '赠送物品',
-    '7': '使用物品'
-  };
-
-  /**
    * @constant {array} SIDEBAR_ROUTES 侧栏路由
    */
   util.SIDEBAR_ROUTES = [{
-      icon: 'goods',
-      title: '物品管理',
-      routes: [{
-        route: 'item',
-        title: '用户物品列表'
-      }, {
-        route: 'itemtype',
-        title: '物品类型列表'
-      }, {
-        route: 'itemgroup',
-        title: '物品分组管理'
-      }]
-    }, {
-      icon: 'logs',
-      title: '日志管理',
-      routes: [{
-        route: 'log',
-        title: '物品日志查询'
-      }]
-    }, {
-      icon: 'gifts',
-      title: '礼包管理',
-      routes: [{
-        route: 'gift',
-        title: '礼包管理'
-      }]
-    }, {
-      icon: 'business',
-      title: '业务系统管理',
-      routes: [{
-        route: 'sysbusiness',
-        title: '业务系统管理'
-      }]
-    }, {
-      icon: 'config',
-      title: '系统管理',
-      routes: [{
-      //   route: 'system/config',
-      //   title: '参数设置'
-      // }, {
-      //   route: 'system/user',
-      //   title: '用户管理'
-      // }, {
-        route: 'system/rbac',
-        title: '权限管理'
-      }]
-    }];
+    icon: 'rbac',
+    title: '权限管理',
+    routes: [{
+      route: 'rbac/role',
+      title: '角色列表'
+    }]
+  }];
 
   /**
    * @constant {array}  HEADER_ROUTES 顶部路由
    */
   util.HEADER_ROUTES = [{
-      route: 'logout',
-      title: '退出'
-    }];
+    route: 'logout',
+    title: '退出'
+  }];
 
   /**
    * @constant {object}  UPLOAD_SERVER 上传服务配置
