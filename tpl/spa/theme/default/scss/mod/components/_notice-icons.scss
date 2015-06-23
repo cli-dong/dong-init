@@ -1,0 +1,25 @@
+@import "../sprite";
+button {
+  @include inline-block();
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  text-indent: 16px;
+  background-color: #fff;
+  &:focus {
+    outline: none;
+  }
+}
+.isset, .notset {
+  background-image: sprite-url($icon);
+  background-repeat: no-repeat;
+}
+.isset {
+  background-position: sprite-position($icon, clock);
+}
+.notset {
+  background-position: sprite-position($icon, clock-gray);
+}

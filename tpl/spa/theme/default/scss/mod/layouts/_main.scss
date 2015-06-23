@@ -1,0 +1,24 @@
+#main {
+  padding: rem(1) rem(1) rem(1) $sidebar_width + rem(1);
+  height: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+
+  &.route-loading {
+    &:before {
+      content: '\e606';
+      font-family: 'iconfont';
+      font-style: normal;
+      font-size: 300%;
+      line-height: 1;
+      color: darken($white, 10);
+      animation: ani-route-loading 1.5s linear infinite;
+    }
+  }
+}
+
+@keyframes ani-route-loading {
+  100% {
+    transform: rotate(360deg);
+  }
+}

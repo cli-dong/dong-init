@@ -9,11 +9,25 @@ function makeOptions(type) {
       title: type === 'add' ? '新增角色' : '编辑角色'
     },
 
+    // 操作按钮
+    button: {
+      disabled: type === 'add'
+    },
+
+    // 从列表取单项数据
+    detail: {
+      useLocal: type === 'edit'
+    },
+
     // 表单选项
     view: {
       method: type === 'add' ? 'POST' : 'PUT',
 
-      formData: {},
+      // 默认值
+      formData: {
+        'is_default': false,
+        'auth_extra': 0
+      },
 
       fields: [{
         name: 'role_name',
@@ -67,18 +81,6 @@ function makeOptions(type) {
       }]
     }
   };
-
-  if (type === 'add') {
-    // 操作按钮
-    options.button = {
-      disabled: true
-    };
-  } else if (type === 'edit') {
-    // 从列表取单项数据
-    options.detail = {
-      useLocal: true
-    };
-  }
 
   return options;
 }

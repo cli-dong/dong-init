@@ -14,5 +14,6 @@
   "WAF/REQUIRE_ARGUMENT": "缺少参数",
   "WAF/SERVICE_UNAVAILABLE": "服务不可用",
   "WAF/UNAUTHORIZED": "未授权（默认）",
-  "WAF/UNSUPPORTED_MEDIA_TYPE": "服务器不支持请求所提交的数据格式"
+  "WAF/UNSUPPORTED_MEDIA_TYPE": "服务器不支持请求所提交的数据格式",
+  "WAF/ACCESS_DENIED":"没有权限"
 }

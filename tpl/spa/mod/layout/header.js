@@ -41,8 +41,8 @@ var Header = Widget.extend({
 
 var instance;
 
-exports.render = function(util) {
-  var authed = util.auth.isAuthed();
+exports.render = function(util/*, model*/) {
+  var authed = util.auth.isLogin();
 
   if (instance) {
     instance.destroy();
@@ -52,7 +52,7 @@ exports.render = function(util) {
     model: {
       title: util.SITE_TITLE,
       authed: authed,
-      userdata: util.user.get(),
+      userdata: util.auth.getAuth('user_info'),
       routes: authed ? util.HEADER_ROUTES : null
     }
   }).render();

@@ -1,53 +1,29 @@
 'use strict';
 
 module.exports = function(util) {
-  var cached = {};
-
   // app/**/index 提供的回收函数
   // route 切换前执行以回收内存
   var recycle;
 
-  // 忽略第一次 cache 请求
-  // 因为它是 index
-  var ignore0;
-
-  // 保存以供多次调用
-  function cache(callback) {
-    if (!ignore0) {
-      ignore0 = true;
-      return;
-    }
-
-    var id = util.route.getRoute().join(util.route.delimiter);
-
-    if (!(id in cached)) {
-      cached[id] = callback;
-    }
-  }
-
-  function clean() {
+  util.use = function(id, params) {
     // GC
     if (typeof recycle === 'function') {
       recycle();
       recycle = null;
     }
-  }
 
-  util.use = function(id) {
-    clean();
-
+    // just for /index.js currently
     if (typeof id === 'function') {
-      cache(id);
-
-      recycle = id();
+      recycle = id(util);
     } else {
-      if (id in cached) {
-        recycle = cached[id]();
-      } else {
-        // app/**/index
-        window.seajs.use('app/' + id + '/index.js');
-      }
+      window.seajs.use('app/' + id + '/index.js', function(bootstrap) {
+        recycle = bootstrap(util, params);
+      });
     }
   };
+
+  window.seajs.on('error', function() {
+    util.redirect('error/404');
+  });
 
 };

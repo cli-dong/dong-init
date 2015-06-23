@@ -10,24 +10,34 @@
   "devDependencies": {},
   "spm": {
     "main": "index.js",
-    "output": ["app/**/index.js"],
+    "output": [
+      "app/**/index.js"
+    ],
     "dependencies": {
       "handlebars": "3.0.1",
       "handlebars-runtime": "3.0.1",
       "jquery": "1.11.1",
       "nd-ajax": "1.0.0",
       "nd-alert": "1.0.0",
-      "nd-auth": "1.0.0",
+      "nd-autocomplete": "1.0.0",
       "nd-base": "0.0.1",
       "nd-browser": "1.0.0",
+      "nd-confirm": "1.0.0",
+      "nd-datetime": "1.0.0",
+      "nd-debug": "1.0.0",
+      "nd-dialog": "1.0.0",
       "nd-form": "1.0.0",
+      "nd-form-extra": "1.0.0",
+      "nd-formdata": "1.0.0",
+      "nd-grid": "1.0.0",
       "nd-md5": "1.0.0",
       "nd-overlay": "1.0.0",
+      "nd-queue": "1.0.0",
       "nd-restful": "1.0.0",
       "nd-router": "1.0.0",
+      "nd-sha": "1.0.0",
       "nd-storage": "1.0.0",
       "nd-template": "1.0.0",
-      "nd-user": "1.0.0",
       "nd-validator": "1.0.0",
       "nd-widget": "1.0.0",
       "source-map": "1.0.2"
@@ -42,6 +52,12 @@
     "host": "127.0.0.1",
     "port": 80,
     "mock": "api",
-    "open": false
+    "open": false,
+    "debug": false,
+    "views": "*.html",
+    "i18n": [
+      "zh-CN",
+      "en-US"
+    ]
   }
 }

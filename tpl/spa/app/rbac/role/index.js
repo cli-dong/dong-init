@@ -3,14 +3,18 @@
 var Grid = require('nd-grid');
 var datetime = require('nd-datetime');
 
-var util = require('../../../mod/util');
-var ucRoleModel = require('../../../mod/model/uc/role');
+var rbacRoleModel = require('../../../mod/model/rbac/role');
 
-util.ready(function() {
+module.exports = function(util) {
+  if (!util.auth.hasAuth('=8')) {
+    return util.redirect('error/403');
+  }
+
   var instance = new Grid({
     parentNode: '#main',
-    proxy: ucRoleModel,
-    autoload: false,
+    proxy: rbacRoleModel,
+    mode: util.RBAC_ENABLED ? 2 : 0,
+    autoload: util.RBAC_ENABLED,
     uniqueId: 'role_id',
     entryKey: null,
     labelMap: {
@@ -37,6 +41,9 @@ util.ready(function() {
     plugins: [{
       name: 'roleUser',
       starter: require('./user/starter')
+    }, {
+      name: 'roleAuth',
+      starter: require('./auth/starter')
     }],
     pluginCfg: {
       addItem: {
@@ -51,11 +58,8 @@ util.ready(function() {
           start: require('./edit/start')
         }
       },
-      delItem: {
-        disabled: false
-      },
       search: {
-        disabled: false,
+        disabled: util.RBAC_ENABLED,
         listeners: {
           start: require('./search/start')
         }
@@ -63,11 +67,22 @@ util.ready(function() {
     }
   }).render();
 
-  // 新增
-  // RISK: 如果多次调用util.ready，可能会多次绑定
-  ucRoleModel.on('POST', function(options) {
-    options.data.realm = instance.get('params').realm;
-  });
+  if (!util.RBAC_ENABLED) {
+    // 新增
+    // RISK: 如果多次调用，会多次绑定
+    rbacRoleModel.on('POST', function(options) {
+      options.data.realm = instance.get('params').realm;
+    });
+  }
+
+  // 面包屑导航
+  util.bread.set(
+    [{
+      title: '权限管理'
+    }, {
+      title: '角色列表'
+    }]
+  );
 
   // 返回垃圾回收
   // 否则内存泄漏
@@ -75,4 +90,4 @@ util.ready(function() {
     instance.destroy();
   };
 
-});
+};

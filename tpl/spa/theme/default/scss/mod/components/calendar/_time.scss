@@ -1,0 +1,19 @@
+.ui-calendar-time {
+  padding-top: rem(1);
+  padding-bottom: rem(1);
+  border-top: 1px solid #dadada;
+  border-bottom: 1px solid #dadada;
+
+  div {
+    @include inline-block();
+  }
+
+  input {
+    width: rem(2);
+    text-align: center;
+  }
+}
+
+.ui-calendar-time-delimiter {
+  @include inline-block();
+}

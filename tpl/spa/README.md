@@ -2,31 +2,14 @@
 
 > <%= description %>
 
-## 准备
-
-```bash
-$ cd path/to/<%= appname %>
-$ dong build [spa]
-```
-
 ## 开发
 
 ```bash
 $ cd path/to/<%= appname %>
-# 生成 config.js
-$ dong build -d
-# 本地 Web 服务
-$ dong serve
-```
-
-## 使用
-
-```html
-<script src="lib/seajs/sea.js"></script>
-<script src="lib/config.js"></script>
-<script>
-  seajs.use('index.js');
-</script>
+# 生成 config.js 等
+$ dong build [spa] -d
+# 启动本地 Web 服务
+$ dong serve -d -o
 ```
 
 ## 构建

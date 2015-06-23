@@ -1,22 +1,84 @@
 'use strict';
 
-var Alert = require('nd-alert');
 var Form = require('nd-form');
 var Validator = require('nd-validator');
 var md5 = require('nd-md5');
 
-var util = require('../../mod/util');
 var ucTokenModel = require('../../mod/model/uc/token');
+var ucUserModel = require('../../mod/model/uc/user');
+var rbacAuthModel = require('../../mod/model/rbac/auth');
 
-util.ready(function() {
+module.exports = function(util) {
 
   var awaiting;
+
+  function getUser(token, done, fail) {
+    ucUserModel
+      .GET(token.userId)
+      .done(function(data) {
+        // 保存用户数据
+        util.auth.setAuth({
+          'user_info': data
+        });
+        done();
+      })
+      .fail(function(error) {
+        util.console.error(error);
+        fail();
+      });
+  }
+
+  function getAuth(token, done, fail) {
+    rbacAuthModel.GET()
+      .done(function(data) {
+        util.auth.setAuth(data);
+        done();
+      })
+      .fail(function(error) {
+        util.console.error(error);
+        fail();
+      });
+  }
+
+  // 检查是否有访问权限
+  function checkAuth(token) {
+    // 保存
+    util.auth.setTokens(token);
+
+    function done() {
+      // 跳转
+      util.redirect('home');
+      awaiting = false;
+    }
+
+    function fail() {
+      // 清理
+      util.auth.destroy();
+      // 拒绝
+      util.console.error('没有权限');
+      awaiting = false;
+    }
+
+    token = {
+      userId: token['user_id']
+    };
+
+    // 已开启基于角色的权限控制
+    if (util.RBAC_ENABLED) {
+      // 本地获取权限后进入
+      getAuth(token, done, fail);
+    } else {
+      // 获取用户信息后进入
+      getUser(token, done, fail);
+    }
+  }
 
   var instance = new Form({
       className: 'ui-form-login',
       plugins: [Validator],
 
       fields: [{
+        icon: 'user',
         name: 'login_name',
         attrs: {
           placeholder: '帐号',
@@ -29,6 +91,7 @@ util.ready(function() {
           pattern: '格式：用户@组织'
         }
       }, {
+        icon: 'lock',
         name: 'password',
         type: 'password',
         attrs: {
@@ -50,6 +113,17 @@ util.ready(function() {
         return data;
       },
 
+      events: {
+        'focus [name="password"]': function() {
+          util.$('#container')
+              .addClass('focused');
+        },
+        'blur [name="password"]': function() {
+          util.$('#container')
+              .removeClass('focused');
+        }
+      },
+
       parentNode: '#main'
     })
     .on('formSubmit', function() {
@@ -65,15 +139,10 @@ util.ready(function() {
             data: data
           })
           .done(function(data) {
-            // 保存
-            util.auth.setTokens(data);
-            // 跳转
-            util.redirect('home');
+            checkAuth(data);
           })
           .fail(function(error) {
-            Alert.show(error);
-          })
-          .always(function() {
+            util.console.error(error);
             awaiting = false;
           });
       });
@@ -83,9 +152,12 @@ util.ready(function() {
     })
     .render();
 
+  // 面包屑导航
+  util.bread.set([]);
+
   // 返回垃圾回收
   // 否则内存泄漏
   return function() {
     instance.destroy();
   };
-});
+};

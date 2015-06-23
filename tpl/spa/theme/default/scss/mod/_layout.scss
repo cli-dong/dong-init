@@ -1,0 +1,18 @@
+html {
+  visibility: hidden;
+}
+
+// for html
+.visible {
+  visibility: visible;
+}
+
+@import "layouts/container";
+@import "layouts/msgbox";
+@import "layouts/header";
+@import "layouts/wrapper";
+@import "layouts/interlude";
+@import "layouts/main";
+@import "layouts/bread";
+@import "layouts/sidebar";
+@import "layouts/footer";

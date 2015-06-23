@@ -1,0 +1,39 @@
+{
+  "/v0.1/roles/apis": {
+    "GET": {
+      "items": [{
+        "level": "role/post",
+        "api": "[POST]roles",
+        "name": "添加角色"
+      }, {
+        "level": "role/delete",
+        "api": "[DELETE]roles/{role_id}",
+        "name": "删除角色"
+      }, {
+        "level": "role/patch",
+        "api": "[PATCH]roles/{role_id}",
+        "name": "修改角色"
+      }, {
+        "level": "role/get",
+        "api": "[GET]roles/{role_id}",
+        "name": "角色详情"
+      }, {
+        "level": "role",
+        "api": "[GET]roles",
+        "name": "角色列表"
+      }]
+    },
+
+    "POST": {
+      "message": "POST OK"
+    },
+
+    "PATCH": {
+      "message": "PATCH OK"
+    },
+
+    "DELETE": {
+      "message": "DELETE OK"
+    }
+  }
+}

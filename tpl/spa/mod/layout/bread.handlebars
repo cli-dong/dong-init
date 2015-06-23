@@ -1,0 +1,10 @@
+<div class="{{classPrefix}}">
+  {{#each breads}}
+    {{#if route}}
+      <a href="/#/{{route}}">{{title}}</a>
+    {{else}}
+      <span>{{title}}</span>
+    {{/if}}
+    {{#unless @last}}>{{/unless}}
+  {{/each}}
+</div>

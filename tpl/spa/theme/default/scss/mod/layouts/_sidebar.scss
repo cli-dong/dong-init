@@ -1,0 +1,83 @@
+#sidebar {
+  position: absolute;
+  left: 0;
+  top: $header_height;
+  width: $sidebar_width;
+  height: 100%;
+  background-color: $dark_blue;
+  overflow: auto;
+  // transition: all 0.2s;
+  padding-bottom: 50px;
+  box-sizing: border-box;
+
+  a {
+    display: block;
+    padding-left: rem(3);
+    box-sizing: border-box;
+    color: darken($white, 20);
+    text-decoration: none;
+
+    &:hover {
+      color: $white;
+    }
+  }
+
+  .folder {
+    > a {
+      height: rem(4.5);
+      line-height: rem(4.5);
+      background-color: lighten($dark_blue, 5);
+      border-top: 1px solid lighten($dark_blue, 10);
+      border-bottom: 1px solid darken($dark_blue, 5);
+      position: relative;
+
+      &:after {
+        content: '＋';
+        position: absolute;
+        top: 0;
+        right: rem(1);
+        font-size: 120%;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .routes {
+    display: none;
+
+    a {
+      height: rem(4);
+      line-height: rem(4);
+
+      &:before {
+        content: '－';
+        font-size: 120%;
+        font-weight: bold;
+        margin-right: rem(0.3);
+      }
+    }
+  }
+
+  .folder-active {
+    > a {
+      padding-left: rem(3)-1;
+      border-left: 1px solid $orange;
+
+      &:after {
+        content: '－';
+      }
+    }
+
+    .routes {
+      display: block;
+    }
+  }
+
+  .route-active {
+    a {
+      color: $white;
+      background-color: fade-out($black, 0.9);
+    }
+  }
+
+}

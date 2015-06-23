@@ -1,0 +1,28 @@
+// 配置间距
+// $icon-spacing: 10px;
+// $icon-weibo-spacing: 10px;
+
+// 配置位置
+// $icon-position: 5px;
+// $icon-weibo-position: 10px;
+
+// 配置sprite的布局方式
+// $icon-layout: vertical;  // vertical/horizontal/diagonal/smart
+
+// 自动输出尺寸
+// $icon-sprite-dimensions: true;
+
+@import "compass/utilities/sprites";
+
+// @import "icon/*.png";
+$icon: sprite-map("icon/*.png", $spacing: 10px);
+
+/* all */
+// @include all-icon-sprites;
+
+/*
+// single
+.reload {
+  @include icon-sprite(reload);
+}
+ */

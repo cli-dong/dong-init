@@ -1,0 +1,13 @@
+{
+  "UC/INVALID_ARGUMENT": "无效参数(格式不对,长度过长或过短等)",
+  "UC/NONCE_INVALID": "Nonce串无效",
+  "UC/AUTH_INVALID_TOKEN": "无效的授权",
+  "UC/AUTH_TOKEN_EXPIRED": "授权已过期",
+  "UC/AUTH_INVALID_TIMESTAMP": "无效的时间戳，当时间戳与系统的差异大于5分钟",
+  "UC/MAC_SIGN_INVALID": "Mac签名错误",
+  "UC/PASSWORD_NOT_CORRECT": "密码不正确",
+  "UC/REQUIRE_ARGUMENT": "缺少参数",
+  "UC/ACCOUNT_NOT_EXIST": "账号不存在",
+  "UC/THIRD_ACCOUNT_NOT_EXIST": "第三方账号不存在",
+  "UC/LOGIN_FAILURE": "登录失败"
+}

@@ -1,52 +1,27 @@
 'use strict';
 
-var $ = require('jquery');
-
 var Grid = require('nd-grid');
 
-var ucRoleUserModel = require('../../../../mod/model/uc/role/user');
-var ucUserRoleModel = require('../../../../mod/model/uc/user/role');
+var util = require('../../../../mod/util');
+
+var rbacRoleUserModel = require('../../../../mod/model/rbac/role/user');
 
 module.exports = function() {
   var plugin = this,
     host = plugin.host,
     uniqueId;
 
-  // 列表
-  ucRoleUserModel.on('GET', function(options) {
+  rbacRoleUserModel.on('all', function(type, options) {
     options.replacement = {
       'role_id': uniqueId
     };
   });
 
-  // 新增
-  ucRoleUserModel.on('POST', function(options) {
-    // 替换
-    options.baseUri = ucUserRoleModel.get('baseUri');
-    options.replacement = {
-      'user_id': options.data['user_id']
-    };
-
-    options.uri = uniqueId;
-
-    delete options.data;
-  });
-
-  // 删除
-  ucRoleUserModel.on('DELETE', function(options) {
-    // 替换
-    options.baseUri = ucUserRoleModel.get('baseUri');
-    options.replacement = {
-      'user_id': options.uri
-    };
-
-    options.uri = uniqueId;
-  });
-
   function makeGrid(realm) {
-    return new Grid($.extend(true, {
+    return new Grid(util.$.extend(true, {
       realm: realm,
-      proxy: ucRoleUserModel,
+      proxy: rbacRoleUserModel,
+      mode: 2,
       // params: {
       //   $limit: 50,
       //   $offset: 0
@@ -74,16 +49,7 @@ module.exports = function() {
         },
         back: {
           disabled: false
-        },
-        paginate: [function() {
-          this.setOptions('view', {
-            theme: 'none'
-          });
-        }]
-      },
-      // 列表加载完毕，重新定位 dialog
-      afterRenderPartial: function() {
-        this.dialog && this.dialog.show();
+        }
       },
       parentNode: host.get('parentNode')
     }, plugin.getOptions('view')));
@@ -99,9 +65,10 @@ module.exports = function() {
     'click [data-role="role-user"]': function(e) {
       if (!plugin.exports) {
         uniqueId = host.getItemIdByTarget(e.currentTarget);
+
         plugin.exports = makeGrid(
-            host.get('params').realm
-          ).render();
+          host.get('params').realm
+        ).render();
 
         plugin.exports.on('hide', function() {
           plugin.trigger('hide', plugin.exports);
@@ -121,6 +88,12 @@ module.exports = function() {
       host.element.hide();
     }
 
+    // 面包屑导航
+    util.bread.push({
+      route: null,
+      title: '用户列表'
+    });
+
     grid.element.show();
   });
 
@@ -128,6 +101,9 @@ module.exports = function() {
     if (!this.getOptions('interact')) {
       host.element.show();
     }
+
+    // 面包屑导航
+    util.bread.pop();
 
     grid.destroy();
     delete plugin.exports;

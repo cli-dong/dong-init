@@ -6,7 +6,6 @@ module.exports = function() {
 
     fields: [{
       name: 'realm',
-      // value: 'im.core.sdp.nd',
       attrs: {
         placeholder: '业务领域',
         maxlength: 255,

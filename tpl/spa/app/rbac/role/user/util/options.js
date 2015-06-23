@@ -3,55 +3,50 @@
 var AutoComplete = require('nd-autocomplete');
 
 var util = require('../../../../../mod/util');
-var userModel = require('../../../../../mod/model/uc/org/user');
-var autoComplete;
+var ucOrgUser = require('../../../../../mod/model/uc/org/user');
 
-var keyPrefix = 'USERS-';
+var users;
 
-// 过滤原始 user 数据，获取 autocomplete 必要内容
-function filtUserData(oriUserData) {
-  return oriUserData.map(function(user) {
-    return {
-      value: user['user_id'],
-      label: user['user_id'] + ' ' + user['nick_name'],
-      alias: [user['nick_name_full'], user['nick_name_short'], user['nick_name']]
+// 获取用户数据
+function getUsers(query, done) {
+  // 如果已在内存中
+  if (users) {
+    return done(users);
+  }
+
+  // 如果已在本地存储中
+  var orgId = util.auth.getAuth('user_info', 'org_exinfo', 'org_id');
+  var key = 'USERS-' + orgId;
+
+  users = util.session.get(key);
+
+  if (users) {
+    return done(users);
+  }
+
+  ucOrgUser.on('GET', function(options) {
+    options.replacement = {
+      'org_id': orgId
     };
   });
-}
 
-// 使用 autocomplete
-function setAutocomplete(users) {
-  autoComplete = new AutoComplete({
-    trigger: '#grid-add-item-user_id',
-    dataSource: users
-  }).render();
-}
-
-//获取用户数据
-function getUsers(orgId) {
-  //替换URL中的org_id
-  var replacement = {
-    'org_id': orgId
-  };
-
-  userModel.on('all', function(type, options) {
-    options.replacement = replacement;
-  });
-
-  //获取组织用户数据
-  userModel.LIST({
+  // 获取组织用户数据（全量）
+  ucOrgUser.LIST({
     data: {
       $offset: 0,
       $limit: 10000
     }
   }).done(function(data) {
     if (data.items && data.items.length) {
-      var thinUser = filtUserData(data.items);
-
-      util.session.set(keyPrefix + orgId, thinUser);
-
-      //设置autocomplete
-      setAutocomplete(thinUser);
+      users = data.items.map(function(user) {
+        return {
+          value: user['user_id'],
+          label: user['user_id'] + ' ' + user['nick_name'],
+          alias: [user['nick_name_full'], user['nick_name_short'], user['nick_name']]
+        };
+      });
+      done(users);
+      util.session.set(key, users);
     } else {
       console.error('无法获取用户列表');
     }
@@ -60,8 +55,20 @@ function getUsers(orgId) {
   });
 }
 
+// 使用 autocomplete
+function setAutoComplete(form, field) {
+  var autoComplete = new AutoComplete({
+    trigger: field,
+    dataSource: getUsers
+  }).render();
+
+  form.before('destroy', function() {
+    autoComplete.destroy();
+  });
+}
+
 function makeOptions() {
-  var options = {
+  return {
 
     // 交互模式
     interact: {
@@ -88,20 +95,7 @@ function makeOptions() {
       },
 
       afterRender: function() {
-        var orgId = util.user.get('org_exinfo', 'org_id');
-        var localUser = util.session.get(keyPrefix + orgId);
-
-        if (localUser) {
-          setAutocomplete(localUser);
-        } else {
-          getUsers(orgId);
-        }
-
-        if (autoComplete) {
-          this.before('destroy', function() {
-            autoComplete.destroy();
-          });
-        }
+        setAutoComplete(this, this.getField('user_id'));
       },
 
       fields: [{
@@ -116,8 +110,6 @@ function makeOptions() {
       }]
     }
   };
-
-  return options;
 }
 
 module.exports = function() {

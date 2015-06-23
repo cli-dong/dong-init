@@ -1,10 +1,10 @@
 <ul class="nav">
   {{#each folders}}
-    <li class="folder" data-folder="{{@index}}">
+    <li class="folder{{#if active}} folder-active{{/if}}" data-folder="{{@index}}">
       <a class="iconfont iconfont-{{icon}}" href="/#/{{@index}}">{{title}}</a>
       <ul class="routes">
         {{#each routes}}
-          <li class="route-{{route}}" data-route="{{route}}">
+          <li class="route{{#if active}} route-active{{/if}}">
             <a href="/#/{{route}}">{{title}}</a>
           </li>
         {{/each}}

@@ -1,0 +1,136 @@
+@import 'compass/utilities';
+@import 'fileIconSprite';
+
+.file-icon {
+  @include inline-block();
+  width: 25px;
+  height: 25px;
+  background-image: sprite-url($fileIcon);
+  background-position: sprite-position($fileIcon, default);
+  background-repeat: no-repeat;
+  font-size: 0;
+  margin-left: 5px;
+}
+.icon-7z {
+ background-position: sprite-position($fileIcon, z7);
+}
+.icon-rar, .icon-tgz {
+  background-position: sprite-position($fileIcon, rar);
+}
+.icon-zip {
+  background-position: sprite-position($fileIcon, zip);
+}
+.icon-actions {
+  background-position: sprite-position($fileIcon, actions);
+}
+.icon-avi {
+  background-position: sprite-position($fileIcon, avi);
+}
+.icon-bat {
+  background-position: sprite-position($fileIcon, bat);
+}
+.icon-bmp {
+  background-position: sprite-position($fileIcon, bmp);
+}
+.icon-css {
+  background-position: sprite-position($fileIcon, css);
+}
+.icon-doc {
+  background-position: sprite-position($fileIcon, doc);
+}
+.icon-docx {
+  background-position: sprite-position($fileIcon, docx);
+}
+.icon-f4v {
+  background-position: sprite-position($fileIcon, f4v);
+}
+.icon-fla {
+  background-position: sprite-position($fileIcon, fla);
+}
+.icon-gif {
+  background-position: sprite-position($fileIcon, gif);
+}
+.icon-html {
+  background-position: sprite-position($fileIcon, html);
+}
+.icon-ini {
+  background-position: sprite-position($fileIcon, ini);
+}
+.icon-iso {
+  background-position: sprite-position($fileIcon, iso);
+}
+.icon-jpeg {
+  background-position: sprite-position($fileIcon, jpeg);
+}
+.icon-jpg {
+  background-position: sprite-position($fileIcon, jpg);
+}
+.icon-map {
+  background-position: sprite-position($fileIcon, map);
+}
+.icon-mid {
+  background-position: sprite-position($fileIcon, mid);
+}
+.icon-midi {
+  background-position: sprite-position($fileIcon, midi);
+}
+.icon-mkv {
+  background-position: sprite-position($fileIcon, mkv);
+}
+.icon-mov {
+  background-position: sprite-position($fileIcon, mov);
+}
+.icon-mp3 {
+  background-position: sprite-position($fileIcon, mp3);
+}
+.icon-mp4 {
+  background-position: sprite-position($fileIcon, mp4);
+}
+.icon-mpeg {
+  background-position: sprite-position($fileIcon, mpeg);
+}
+.icon-mpg {
+  background-position: sprite-position($fileIcon, mpg);
+}
+.icon-pdf {
+  background-position: sprite-position($fileIcon, pdf);
+}
+.icon-png {
+  background-position: sprite-position($fileIcon, png);
+}
+.icon-ppt {
+  background-position: sprite-position($fileIcon, ppt);
+}
+.icon-pptx {
+  background-position: sprite-position($fileIcon, pptx);
+}
+.icon-psd {
+  background-position: sprite-position($fileIcon, psd);
+}
+.icon-psb {
+  background-position: sprite-position($fileIcon, psb);
+}
+.icon-screen {
+  background-position: sprite-position($fileIcon, screen);
+}
+.icon-swf {
+  background-position: sprite-position($fileIcon, swf);
+}
+.icon-tiff {
+  background-position: sprite-position($fileIcon, tiff);
+}
+.icon-txt {
+  background-position: sprite-position($fileIcon, txt);
+}
+.icon-wav {
+  background-position: sprite-position($fileIcon, wav);
+}
+.icon-wmv {
+  background-position: sprite-position($fileIcon, wmv);
+}
+.icon-xls {
+  background-position: sprite-position($fileIcon, xls);
+}
+.icon-xlsx {
+  background-position: sprite-position($fileIcon, xlsx);
+}

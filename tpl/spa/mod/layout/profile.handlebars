@@ -1,12 +1,12 @@
 <div class="{{classPrefix}}">
-  {{#if userdata.org_exinfo}}
+  {{#with userdata.org_exinfo}}
   <ul>
-    {{#if userdata.org_exinfo.org_name}}
-      <li>单位：{{userdata.org_exinfo.org_name}}</li>
+    {{#if org_name}}
+      <li><span class="{{@root.classPrefix}}-label">单位：</span><span class="{{classPrefix}}-value">{{org_name}}</span></li>
     {{/if}}
-    {{#if userdata.org_exinfo.node_name}}
-      <li>部门：{{userdata.org_exinfo.node_name}}</li>
+    {{#if node_name}}
+      <li><span class="{{@root.classPrefix}}-label">部门：</span><span class="{{classPrefix}}-value">{{node_name}}</span></li>
     {{/if}}
   </ul>
-  {{/if}}
+  {{/with}}
 </div>

@@ -1,0 +1,29 @@
+{
+  "/v0.1/roles": {
+    "GET": {
+      "items": [{
+        "auth_extra": 1,
+        "is_default": false,
+        "realm": "interaction.nd.com",
+        "remarks": "管理员",
+        "role_id": 145,
+        "role_name": "ADMINISTRATOR",
+        "updated_at": "2015-06-15T14:59:36Z"
+      }]
+    }
+  },
+  "/v0.1/roles/145": {
+    "POST": {
+      "message": "POST OK"
+    },
+    "PATCH": {
+      "message": "PATCH OK"
+    },
+    "PUT": {
+      "message": "PUT OK"
+    },
+    "DELETE": {
+      "message": "DELETE OK"
+    }
+  }
+}

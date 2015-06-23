@@ -1,0 +1,19 @@
+{
+  "/v0.9/users/980071": {
+    "GET": {
+      "nick_name": "李文富",
+      "nick_name_full": "liwenfu",
+      "nick_name_short": "lwf",
+      "org_exinfo": {
+        "node_id": 485331310966,
+        "node_name": "应用产品一部开发组",
+        "org_id": 481036337156,
+        "org_name": "ND",
+        "org_user_code": "980071",
+        "real_name": "李文富"
+      },
+      "user_id": 980071,
+      "user_name": "980071@ND"
+    }
+  }
+}

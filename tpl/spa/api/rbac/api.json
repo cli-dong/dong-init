@@ -1,0 +1,60 @@
+{
+  "/v0.1/apis": {
+    "GET": {
+      "items": [{
+        "level": "role/post",
+        "api": "[POST]roles",
+        "name": "添加角色"
+      }, {
+        "level": "role/delete",
+        "api": "[DELETE]roles/{role_id}",
+        "name": "删除角色"
+      }, {
+        "level": "role/patch",
+        "api": "[PATCH]roles/{role_id}",
+        "name": "修改角色"
+      }, {
+        "level": "role/get",
+        "api": "[GET]roles/{role_id}",
+        "name": "角色详情"
+      }, {
+        "level": "role",
+        "api": "[GET]roles",
+        "name": "角色列表"
+      }, {
+        "level": "api/post",
+        "api": "[POST]apis",
+        "name": "添加接口"
+      }, {
+        "level": "api/delete",
+        "api": "[DELETE]apis/{api_id}",
+        "name": "删除接口"
+      }, {
+        "level": "api/patch",
+        "api": "[PATCH]apis/{api_id}",
+        "name": "修改接口"
+      }, {
+        "level": "api/get",
+        "api": "[GET]apis/{api_id}",
+        "name": "接口详情"
+      }, {
+        "level": "api",
+        "api": "[GET]apis",
+        "name": "接口列表"
+      }]
+    },
+
+    "POST": {
+      "message": "POST OK"
+    },
+
+    "PATCH": {
+      "message": "PATCH OK"
+    },
+
+    "DELETE": {
+      "message": "DELETE OK"
+    }
+  }
+
+}

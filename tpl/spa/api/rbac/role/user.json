@@ -1,0 +1,23 @@
+{
+  "/v0.1/roles/145/users": {
+    "GET": {
+      "items": [{
+        "nick_name": "李文富",
+        "user_id": 980071,
+        "user_name": "980071@ND"
+      }]
+    },
+    "POST": {
+      "message": "POST OK"
+    },
+    "PATCH": {
+      "message": "PATCH OK"
+    },
+    "PUT": {
+      "message": "PUT OK"
+    },
+    "DELETE": {
+      "message": "DELETE OK"
+    }
+  }
+}

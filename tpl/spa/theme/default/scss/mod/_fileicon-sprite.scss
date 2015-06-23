@@ -1,0 +1,19 @@
+// 配置间距
+// $fileicon-spacing: 26px;
+
+// 配置位置
+// $fileicon-position: 0;
+
+// 配置sprite的布局方式
+// $fileicon-layout: vertical;  // vertical/horizontal/diagonal/smart
+
+// 自动输出尺寸
+// $fileicon-sprite-dimensions: true;
+
+@import "compass/utilities/sprites";
+
+@import "fileicon/*.png";
+
+// $fileicon: sprite-map("fileicon/*.png", $spacing: 10px);
+
+@include all-fileicon-sprites;

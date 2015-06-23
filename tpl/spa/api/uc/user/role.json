@@ -1,0 +1,11 @@
+{
+  "/v0.9/users/roles/145": {
+    "GET": {
+      "items": [{
+        "nick_name": "李文富",
+        "user_id": 980071,
+        "user_name": "980071@ND"
+      }]
+    }
+  }
+}
