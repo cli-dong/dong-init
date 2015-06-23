@@ -98,7 +98,8 @@ module.exports = function() {
 
     // 面包屑导航
     util.bread.push({
-      route: null,
+      title: host.getItemDataById(uniqueId, true)['nick_name']
+    }, {
       title: '角色列表'
     });
 
@@ -111,7 +112,7 @@ module.exports = function() {
     }
 
     // 面包屑导航
-    util.bread.pop();
+    util.bread.splice(-2);
 
     grid.destroy();
     delete plugin.exports;
