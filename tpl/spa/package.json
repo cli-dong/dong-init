@@ -51,7 +51,7 @@
     "root": ".",
     "host": "127.0.0.1",
     "port": 80,
-    "mock": "api",
+    "mock": "mock",
     "open": false,
     "debug": false,
     "views": "*.html",

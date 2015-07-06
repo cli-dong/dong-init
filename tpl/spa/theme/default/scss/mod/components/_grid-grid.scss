@@ -71,21 +71,5 @@
       }
     }
 
-    .iconfont-check {
-
-      color: lighten($black, 80);
-      font-weight: normal;
-
-      &.checked {
-        color: $orange;
-      }
-
-      input {
-        position: absolute !important;
-        clip: rect(1px 1px 1px 1px);
-        clip: rect(1px, 1px, 1px, 1px);
-      }
-    }
-
   }
 }

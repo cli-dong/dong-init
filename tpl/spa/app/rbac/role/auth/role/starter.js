@@ -5,9 +5,7 @@ var $ = require('jquery');
 var Grid = require('nd-grid');
 var datetime = require('nd-datetime');
 
-var util = require('../../../../../mod/util');
-
-var rbacUserRoleModel = require('../../../../../mod/model/rbac/user/role');
+var ucUserRoleModel = require('../../../../../mod/model/uc/user/role');
 
 module.exports = function() {
   var plugin = this,
@@ -15,7 +13,26 @@ module.exports = function() {
     uniqueId;
 
   // 列表
-  rbacUserRoleModel.on('all', function(type, options) {
+  ucUserRoleModel.on('GET', function(options) {
+    options.data['realm'] = host.get('realm');
+    options.replacement = {
+      'user_id': uniqueId
+    };
+  });
+
+  // 新增
+  ucUserRoleModel.on('POST', function(options) {
+    options.replacement = {
+      'user_id': uniqueId
+    };
+
+    options.uri = options.data['role_id'];
+
+    delete options.data;
+  });
+
+  // 删除
+  ucUserRoleModel.on('DELETE', function(options) {
     options.replacement = {
       'user_id': uniqueId
     };
@@ -23,8 +40,7 @@ module.exports = function() {
 
   function makeGrid() {
     return new Grid($.extend(true, {
-      proxy: rbacUserRoleModel,
-      mode: 2,
+      proxy: ucUserRoleModel,
       uniqueId: 'role_id',
       entryKey: null,
       labelMap: {
@@ -62,6 +78,10 @@ module.exports = function() {
           disabled: false
         }
       },
+      // 列表加载完毕，重新定位 dialog
+      afterRenderPartial: function() {
+        this.dialog && this.dialog.show();
+      },
       parentNode: host.get('parentNode')
     }, plugin.getOptions('view')));
   }
@@ -96,12 +116,6 @@ module.exports = function() {
       host.element.hide();
     }
 
-    // 面包屑导航
-    util.bread.push({
-      route: null,
-      title: '角色列表'
-    });
-
     grid.element.show();
   });
 
@@ -109,9 +123,6 @@ module.exports = function() {
     if (!this.getOptions('interact')) {
       host.element.show();
     }
-
-    // 面包屑导航
-    util.bread.pop();
 
     grid.destroy();
     delete plugin.exports;

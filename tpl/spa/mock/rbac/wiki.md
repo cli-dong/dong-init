@@ -134,19 +134,19 @@
                 ```
 
         5.5 用户角色配置
-            5.5.1 获取指定用户所属的角色列表
-                [POST] /users/{user_id}/roles
-                ```
-                {
-                    items: [ ROLE1, ROLE2, ..., ROLEN ]
-                }
-                ```
-            5.5.2 为指定用户添加角色
-                [POST] /users/{user_id}/roles
-                ```
-                {
-                     role_id: 123
-                }
-                ```
-            5.5.3 删除指定用户的指定角色
-                [DELETE] /users/{user_id}/roles/{role_id}
+        5.5.1 获取指定用户所属的角色列表
+            [POST] /users/{user_id}/roles
+            ```
+            {
+                items: [ ROLE1, ROLE2, ..., ROLEN ]
+            }
+            ```
+        5.5.2 为指定用户添加角色
+            [POST] /users/{user_id}/roles
+            ```
+            {
+                 role_id: 123
+            }
+            ```
+        5.5.3 删除指定用户的指定角色
+            [DELETE] /users/{user_id}/roles/{role_id}

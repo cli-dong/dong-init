@@ -6,7 +6,7 @@ var datetime = require('nd-datetime');
 var rbacRoleModel = require('../../../mod/model/rbac/role');
 
 module.exports = function(util) {
-  if (!util.auth.hasAuth('=8')) {
+  if (!util.auth.hasAuth('8')) {
     return util.redirect('error/403');
   }
 

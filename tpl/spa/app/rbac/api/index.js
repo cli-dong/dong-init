@@ -5,7 +5,7 @@ var Grid = require('nd-grid');
 var rbacApiModel = require('../../../mod/model/rbac/api');
 
 module.exports = function(util) {
-  if (!util.auth.hasAuth('=9')) {
+  if (!util.auth.hasAuth('9')) {
     return util.redirect('error/403');
   }
 
@@ -14,13 +14,13 @@ module.exports = function(util) {
     className: 'ui-grid-apis',
     proxy: rbacApiModel,
     mode: 2,
-    // theme: 'card',
+    theme: 'card',
     uniqueId: 'api',
     entryKey: null,
     labelMap: {
-      'name': '名称',
+      'level': '标识',
       'api': '地址',
-      'level': '标识符'
+      'name': '备注'
     },
     checkable: false,
     pluginCfg: {

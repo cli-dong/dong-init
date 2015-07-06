@@ -131,12 +131,12 @@ module.exports = function(util) {
         route: 'rbac/role',
         title: '角色列表',
         // 用于权限控制
-        level: '=8'
+        level: '8'
       }, {
         route: 'rbac/api',
         title: '接口列表',
         // 用于权限控制
-        level: '=9'
+        level: '9'
       }]
     }];
 

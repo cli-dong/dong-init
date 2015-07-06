@@ -74,15 +74,10 @@ module.exports = function(util) {
       // 接口标识符
       // 支持“|”分隔，代表“或”
       return level.split('|').some(function(level) {
-        var exact;
-        if (level.charAt(0) === '=') {
-          exact = true;
-          level = level.substring(1);
-        }
         if (/\D/.test(level)) {
           return apis && getRegexp(level).test(apis);
         } else {
-          return exact ? auth.level === +level : auth.level >= level;
+          return auth.level >= level;
         }
       });
     },
@@ -166,15 +161,8 @@ module.exports = function(util) {
       this.setAuth(null);
     },
 
-    getAccessToken: function() {
+    _getAccessToken: function() {
       return this.getTokens('access_token');
-    },
-
-    getAuthentization: function(method, url, host) {
-      return ['MAC id="' + this.getAccessToken() + '"',
-        'nonce="' + this._getNonce() + '"',
-        'mac="' + this._getMac(method, url, host) + '"'
-      ].join(',');
     },
 
     _getMacContent: function(method, url, host) {
@@ -188,6 +176,13 @@ module.exports = function(util) {
 
     _getNonce: function() {
       return (this.nonce = nonce());
+    },
+
+    getAuthentization: function(method, url, host) {
+      return ['MAC id="' + this._getAccessToken() + '"',
+        'nonce="' + this._getNonce() + '"',
+        'mac="' + this._getMac(method, url, host) + '"'
+      ].join(',');
     }
 
   };

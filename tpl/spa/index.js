@@ -20,7 +20,7 @@ require('./mod/mixins/session')(util);
 require('./mod/mixins/storage')(util);
 require('./mod/mixins/const')(util);
 require('./mod/mixins/console')(util);
-require('./mod/mixins/ajax')(util);
+require('./mod/mixins/progress')(util);
 require('./mod/mixins/rest')(util);
 require('./mod/mixins/auth')(util);
 require('./mod/mixins/bread')(util);

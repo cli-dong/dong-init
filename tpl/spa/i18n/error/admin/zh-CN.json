@@ -1,0 +1,4 @@
+{
+  "ADMIN/INVALID_REQUEST": "非法请求，访问受限",
+  "ADMIN/FORBIDDEN": "用户权限不足，请求被拒绝"
+}

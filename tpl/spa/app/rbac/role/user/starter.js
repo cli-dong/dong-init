@@ -90,8 +90,7 @@ module.exports = function() {
 
     // 面包屑导航
     util.bread.push({
-      title: host.getItemDataById(uniqueId, true)['role_name']
-    }, {
+      route: null,
       title: '用户列表'
     });
 
@@ -104,7 +103,7 @@ module.exports = function() {
     }
 
     // 面包屑导航
-    util.bread.splice(-2);
+    util.bread.pop();
 
     grid.destroy();
     delete plugin.exports;

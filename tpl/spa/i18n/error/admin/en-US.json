@@ -1,0 +1,4 @@
+{
+  "ADMIN/INVALID_REQUEST": "Illegal request",
+  "ADMIN/FORBIDDEN": "Permission denied"
+}

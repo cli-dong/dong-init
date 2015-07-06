@@ -32,6 +32,11 @@
         <url-pattern>*.png</url-pattern>
         <url-pattern>*.handlebars</url-pattern>
         <url-pattern>*.json</url-pattern>
+        <url-pattern>*.map</url-pattern>
+        <url-pattern>*.eot</url-pattern>
+        <url-pattern>*.woff</url-pattern>
+        <url-pattern>*.ttf</url-pattern>
+        <url-pattern>*.svg</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>

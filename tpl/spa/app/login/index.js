@@ -18,7 +18,7 @@ module.exports = function(util) {
       .done(function(data) {
         // 保存用户数据
         util.auth.setAuth({
-          'user_info': data
+          userinfo: data
         });
         done();
       })

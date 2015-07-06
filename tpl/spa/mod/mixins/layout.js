@@ -17,7 +17,7 @@ module.exports = function(util) {
     render: function(partial, model) {
       if (partial) {
         if (!Array.isArray(partial)) {
-          if (partial.charAt(0) === '!') {
+          if (partial.charAt(0) === '-') {
             partial = partial.substring(1);
             partial = Object.keys(partials).filter(function(key) {
               return key !== partial;
@@ -37,6 +37,6 @@ module.exports = function(util) {
   };
 
   // render layouts except sidebar
-  util.layout.render('!sidebar');
+  util.layout.render('-sidebar');
 
 };
