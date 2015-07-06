@@ -4,21 +4,21 @@ var Form = require('nd-form');
 var Validator = require('nd-validator');
 var md5 = require('nd-md5');
 
-var ucTokenModel = require('../../mod/model/uc/token');
-var ucUserModel = require('../../mod/model/uc/user');
-var rbacAuthModel = require('../../mod/model/rbac/auth');
+var UcTokenModel = require('../../mod/model/uc/token');
+var UcUserModel = require('../../mod/model/uc/user');
+var RbacAuthModel = require('../../mod/model/rbac/auth');
 
 module.exports = function(util) {
 
   var awaiting;
 
   function getUser(token, done, fail) {
-    ucUserModel
+    new UcUserModel()
       .GET(token.userId)
       .done(function(data) {
         // 保存用户数据
         util.auth.setAuth({
-          userinfo: data
+          'user_info': data
         });
         done();
       })
@@ -29,7 +29,8 @@ module.exports = function(util) {
   }
 
   function getAuth(token, done, fail) {
-    rbacAuthModel.GET()
+    new RbacAuthModel()
+      .GET()
       .done(function(data) {
         util.auth.setAuth(data);
         done();
@@ -78,7 +79,7 @@ module.exports = function(util) {
       plugins: [Validator],
 
       fields: [{
-        icon: 'user',
+        icon: 'user-o',
         name: 'login_name',
         attrs: {
           placeholder: '帐号',
@@ -91,7 +92,7 @@ module.exports = function(util) {
           pattern: '格式：用户@组织'
         }
       }, {
-        icon: 'lock',
+        icon: 'lock-o',
         name: 'password',
         type: 'password',
         attrs: {
@@ -135,7 +136,7 @@ module.exports = function(util) {
 
         awaiting = true;
 
-        ucTokenModel.POST({
+        new UcTokenModel().POST({
             data: data
           })
           .done(function(data) {

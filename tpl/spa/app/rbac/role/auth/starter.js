@@ -5,14 +5,17 @@ var Grid = require('nd-grid');
 var util = require('../../../../mod/util');
 
 // authed
-var rbacRoleApiModel = require('../../../../mod/model/rbac/role/api');
+var RbacRoleApiModel = require('../../../../mod/model/rbac/role/api');
 // entire
-var rbacRoleApiAllModel = require('../../../../mod/model/rbac/role/apiall');
+var RbacRoleApiAllModel = require('../../../../mod/model/rbac/role/apiall');
 
 module.exports = function() {
   var plugin = this,
     host = plugin.host,
-    uniqueId;
+    uniqueId,
+    awaiting;
+
+  var rbacRoleApiModel = new RbacRoleApiModel();
 
   var lazySave = (function() {
     var t;
@@ -26,64 +29,84 @@ module.exports = function() {
     };
   })();
 
-  function makeGrid() {
+  function makeApiArr(items) {
+    return items.map(function(item) {
+      return item.id;
+    });
+  }
+
+  function makeGrid(apiArr) {
     return new Grid(util.$.extend(true, {
-        proxy: rbacRoleApiAllModel,
-        mode: 2,
-        theme: 'card',
-        uniqueId: 'api',
-        entryKey: null,
-        labelMap: {
-          'level': '标识符',
-          'api': '地址',
-          'name': '备注'
-        },
-        checkable: true,
-        pluginCfg: {
-          back: {
-            disabled: false
-          }
-        },
-        events: {
-          'change [name="check-item"]': function() {
-            // 延迟提交，避免多次提交
-            lazySave(function() {
-              var apis = util.$.map(
-                this.$('[name="check-item"]:checked'),
-                function(item) {
-                  return item.value;
-                });
-              var _apis = [];
-
-              this.get('originData').items.forEach(function(item) {
-                if (apis.indexOf(item.api) !== -1) {
-                  _apis.push(item);
-                }
+      proxy: new RbacRoleApiAllModel(),
+      mode: 2,
+      // theme: 'card',
+      uniqueId: 'id',
+      entryKey: null,
+      labelMap: {
+        // 'id': 'ID',
+        'module': '模块',
+        'name': '名称',
+        'api': '地址',
+        'level': '标识符'
+      },
+      checkable: true,
+      pluginCfg: {
+        back: {
+          disabled: false
+        }
+      },
+      events: {
+        'change [name="check-item"]': function() {
+          // 延迟提交，避免多次提交
+          lazySave(function() {
+            var apis = util.$.map(
+              this.$('[name="check-item"]:checked'),
+              function(item) {
+                return item.value;
               });
+            var _apis = [];
 
-              rbacRoleApiModel.POST({
-                data: {
-                  // apis: apis
-                  apis: _apis
-                },
-                replacement: {
-                  'role_id': uniqueId
-                }
-              });
-            }.bind(this));
-          }
-        },
-        beforeRenderPartial: function(itemList) {
-          if (util.auth.getAuth('apis')) {
-            itemList.forEach(function(item) {
-              if (util.auth.hasAuth(item.level.value)) {
-                item.checked = true;
+            this.get('originData').items.forEach(function(item) {
+              if (apis.indexOf(item.id) !== -1) {
+                _apis.push(item);
               }
             });
+
+            rbacRoleApiModel.POST({
+              data: {
+                // apis: apis
+                apis: _apis
+              },
+              replacement: {
+                'role_id': uniqueId
+              }
+            }).done(function(data) {
+              // 重设 apiArr
+              apiArr = makeApiArr(data.items);
+              util.console.success('成功设置用户权限');
+            }).fail(function(error) {
+              util.console.error(error);
+            });
+          }.bind(this));
+        }
+      },
+      beforeRenderPartial: function(itemList) {
+        if (apiArr && apiArr.length) {
+          var checked = 0;
+          itemList.forEach(function(item) {
+            if (apiArr.indexOf(item.id.value) !== -1) {
+              item.checked = true;
+              ++checked;
+            }
+          });
+          if (checked === itemList.length) {
+            // all checked
+            this.set('checked', true);
           }
-        },
-        parentNode: host.get('parentNode')
-      }, plugin.getOptions('view')));
+        }
+      },
+      parentNode: host.get('parentNode')
+    }, plugin.getOptions('view')));
   }
 
   host.addItemAction({
@@ -94,17 +117,40 @@ module.exports = function() {
   // 按钮事件
   host.delegateEvents({
     'click [data-role="role-auth"]': function(e) {
-      if (!plugin.exports) {
-        uniqueId = host.getItemIdByTarget(e.currentTarget);
-
-        plugin.exports = makeGrid().render();
-
-        plugin.exports.on('hide', function() {
-          plugin.trigger('hide', plugin.exports);
-        });
+      if (awaiting) {
+        return;
       }
 
-      plugin.trigger('show', plugin.exports);
+      if (!plugin.exports) {
+        // 添加用于阻止多次点击
+        awaiting = true;
+
+        uniqueId = host.getItemIdByTarget(e.currentTarget);
+
+        rbacRoleApiModel.GET({
+          replacement: {
+            'role_id': uniqueId
+          }
+        })
+        .done(function(data) {
+
+          plugin.exports = makeGrid(makeApiArr(data.items)).render();
+
+          plugin.exports.on('hide', function() {
+            plugin.trigger('hide', plugin.exports);
+          });
+
+          plugin.trigger('show', plugin.exports);
+        })
+        .fail(function(error) {
+          util.console.error(error);
+        })
+        .always(function() {
+          awaiting = false;
+        });
+      } else {
+        plugin.trigger('show', plugin.exports);
+      }
     }
   });
 
@@ -119,7 +165,8 @@ module.exports = function() {
 
     // 面包屑导航
     util.bread.push({
-      route: null,
+      title: host.getItemDataById(uniqueId, true)['role_name']
+    }, {
       title: '权限列表'
     });
 
@@ -132,7 +179,7 @@ module.exports = function() {
     }
 
     // 面包屑导航
-    util.bread.pop();
+    util.bread.splice(-2);
 
     grid.destroy();
     delete plugin.exports;

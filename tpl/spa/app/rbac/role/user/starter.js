@@ -4,23 +4,22 @@ var Grid = require('nd-grid');
 
 var util = require('../../../../mod/util');
 
-var rbacRoleUserModel = require('../../../../mod/model/rbac/role/user');
+var RbacRoleUserModel = require('../../../../mod/model/rbac/role/user');
 
 module.exports = function() {
   var plugin = this,
     host = plugin.host,
     uniqueId;
 
-  rbacRoleUserModel.on('all', function(type, options) {
-    options.replacement = {
-      'role_id': uniqueId
-    };
-  });
-
   function makeGrid(realm) {
     return new Grid(util.$.extend(true, {
       realm: realm,
-      proxy: rbacRoleUserModel,
+      proxy: new RbacRoleUserModel()
+        .on('all', function(type, options) {
+          options.replacement = {
+            'role_id': uniqueId
+          };
+        }),
       mode: 2,
       // params: {
       //   $limit: 50,
@@ -90,7 +89,8 @@ module.exports = function() {
 
     // 面包屑导航
     util.bread.push({
-      route: null,
+      title: host.getItemDataById(uniqueId, true)['role_name']
+    }, {
       title: '用户列表'
     });
 
@@ -103,7 +103,7 @@ module.exports = function() {
     }
 
     // 面包屑导航
-    util.bread.pop();
+    util.bread.splice(-2);
 
     grid.destroy();
     delete plugin.exports;

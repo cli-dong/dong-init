@@ -3,16 +3,16 @@
 var Grid = require('nd-grid');
 var datetime = require('nd-datetime');
 
-var rbacRoleModel = require('../../../mod/model/rbac/role');
+var RbacRoleModel = require('../../../mod/model/rbac/role');
 
 module.exports = function(util) {
-  if (!util.auth.hasAuth('8')) {
+  if (!util.auth.hasAuth('=8')) {
     return util.redirect('error/403');
   }
 
   var instance = new Grid({
     parentNode: '#main',
-    proxy: rbacRoleModel,
+    proxy: new RbacRoleModel(),
     mode: util.RBAC_ENABLED ? 2 : 0,
     autoload: util.RBAC_ENABLED,
     uniqueId: 'role_id',
@@ -58,6 +58,9 @@ module.exports = function(util) {
           start: require('./edit/start')
         }
       },
+      delItem: {
+        disabled: false
+      },
       search: {
         disabled: util.RBAC_ENABLED,
         listeners: {
@@ -70,7 +73,7 @@ module.exports = function(util) {
   if (!util.RBAC_ENABLED) {
     // 新增
     // RISK: 如果多次调用，会多次绑定
-    rbacRoleModel.on('POST', function(options) {
+    instance.get('proxy').on('POST', function(options) {
       options.data.realm = instance.get('params').realm;
     });
   }

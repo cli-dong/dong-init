@@ -15,7 +15,7 @@ function getRoles(query, done) {
   }
 
   // 如果已在本地存储中
-  var orgId = util.auth.getAuth('userinfo', 'org_exinfo', 'org_id');
+  var orgId = util.auth.getAuth('user_info', 'org_exinfo', 'org_id');
   var key = 'ROLES-' + orgId;
 
   roles = util.session.get(key);

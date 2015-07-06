@@ -1,8 +1,9 @@
 #main {
-  padding: rem(1) rem(1) rem(1) $sidebar_width + rem(1);
+  padding: rem(1);
   height: 100%;
   overflow: auto;
   box-sizing: border-box;
+  margin-left: $sidebar_width;
 
   &.route-loading {
     &:before {

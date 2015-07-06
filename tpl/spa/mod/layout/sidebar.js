@@ -22,10 +22,12 @@ exports.render = function(util, id) {
     folders = util.SIDEBAR_ROUTES;
 
     if (util.RBAC_ENABLED) {
+      // 拷贝
+      folders = util.$.extend(true, [], folders);
       // 根据权限过滤模块
       folders = folders.filter(function(folder) {
         folder.routes = folder.routes.filter(function(route) {
-          return !route.level || util.auth.hasAuth(route.level);
+          return !route.level || util.auth.hasAuth(route.level, route.module);
         });
 
         // 有可用的模块（route）

@@ -15,5 +15,5 @@
   "WAF/SERVICE_UNAVAILABLE": "Unavailable service",
   "WAF/UNAUTHORIZED": "Unauthorized (default)",
   "WAF/UNSUPPORTED_MEDIA_TYPE": "Data was submitted in an unsupported format.",
-  "WAF/ACCESS_DENIED":"Access is denied"
+  "WAF/ACCESS_DENIED": "Access is denied"
 }

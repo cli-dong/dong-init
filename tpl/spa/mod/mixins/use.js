@@ -16,8 +16,10 @@ module.exports = function(util) {
     if (typeof id === 'function') {
       recycle = id(util);
     } else {
+      util.progress.show();
       window.seajs.use('app/' + id + '/index.js', function(bootstrap) {
         recycle = bootstrap(util, params);
+        util.progress.show(100);
       });
     }
   };

@@ -2,27 +2,32 @@
 
 var Grid = require('nd-grid');
 
-var rbacApiModel = require('../../../mod/model/rbac/api');
+var RbacApiModel = require('../../../mod/model/rbac/api');
 
 module.exports = function(util) {
-  if (!util.auth.hasAuth('9')) {
+  if (!util.auth.hasAuth('=9')) {
     return util.redirect('error/403');
   }
 
   var instance = new Grid({
     parentNode: '#main',
-    className: 'ui-grid-apis',
-    proxy: rbacApiModel,
+    proxy: new RbacApiModel(),
     mode: 2,
-    theme: 'card',
-    uniqueId: 'api',
+    // theme: 'card',
+    uniqueId: 'id',
     entryKey: null,
     labelMap: {
-      'level': '标识',
+      // 'id': 'ID',
+      'module': '模块',
+      'name': '名称',
       'api': '地址',
-      'name': '备注'
+      'level': '标识符'
     },
     checkable: false,
+    plugins: [{
+      name: 'batch-add',
+      starter: require('./batch/starter')
+    }],
     pluginCfg: {
       addItem: {
         disabled: false,
@@ -30,11 +35,14 @@ module.exports = function(util) {
           start: require('./add/start')
         }
       },
-      delItem: {
+      editItem: {
         disabled: false,
         listeners: {
-          ready: require('./del/ready')
+          start: require('./edit/start')
         }
+      },
+      delItem: {
+        disabled: false
       }
     }
   }).render();

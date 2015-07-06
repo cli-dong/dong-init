@@ -7,7 +7,7 @@
 * @see mod/mixins/storage
 * @see mod/mixins/const
 * @see mod/mixins/console
-* @see mod/mixins/ajax
+* @see mod/mixins/progress
 * @see mod/mixins/rest
 * @see mod/mixins/auth
 * @see mod/mixins/bread

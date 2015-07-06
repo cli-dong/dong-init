@@ -1,58 +1,47 @@
 @import "compass/css3";
 @import "compass/utilities";
-@import "var";
-@import "util";
 
-@import "reset";
+// VAR, HELPER ADN RESET
+@import "utils/var";
+@import "utils/mixin";
+@import "utils/reset";
+@import "utils/base";
 
-html, body {
-  height: 100%;
-}
+// FONT AND ICONFONT
+@import "utils/icon-sprite";
+@import "utils/fileicon-sprite";
+@import "utils/iconfont";
 
+// LAYOUT
 html {
-  font: rem(1.4) Tahoma, Arial, Helvetica, "Microsoft YaHei", "宋体", sans-serif;
-  overflow: hidden;
+  visibility: hidden;
 }
 
-body {
-  font: #{rem(1.4)}/1.5 Tahoma, Arial, Helvetica, "Microsoft YaHei", "宋体", sans-serif;
-  color: lighten($black, 20);
-  background-color: darken($white, 10);
-
-  ::-webkit-scrollbar {
-    width: rem(0.3);
-    height: rem(0.3);
-    background-color: $scrollbar_color;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: $scrollbar_thumb_color;
-  }
-  ::-webkit-scrollbar-button {
-    height: 0;
-    width: 0;
-    background-color: transparent;
-  }
+// for html
+.visible {
+  visibility: visible;
 }
 
-input, textarea, keygen, select, button {
-  font: #{rem(1.4)}/1.5 Tahoma, Arial, Helvetica, "Microsoft YaHei", "宋体", sans-serif;
-  color: lighten($black, 20);
-}
+// LAYOUT
+@import "layouts/container";
+@import "layouts/progress";
+@import "layouts/msgbox";
+@import "layouts/header";
+@import "layouts/wrapper";
+@import "layouts/interlude";
+@import "layouts/main";
+@import "layouts/bread";
+@import "layouts/sidebar";
+@import "layouts/footer";
 
-a {
-
-  &:link {
-    color: lighten($black, 20);
-    text-decoration: none;
-  }
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-@import "icon-sprite";
-@import "fileicon-sprite";
-@import "iconfont";
-
-@import "layout";
+// COMPONENT
+@import "components/grid";
+@import "components/form";
+@import "components/pagination";
+@import "components/dialog";
+@import "components/view-dialog";
+@import "components/tip";
+@import "components/select";
+@import "components/upload";
+@import "components/calendar";
+@import "components/validator";

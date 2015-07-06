@@ -46,18 +46,34 @@ module.exports = function(util) {
   /**
    * @constant {string} MB_API_ORIGIN
    */
-  util.MB_API_ORIGIN = (function() {
-      switch (util.ENV) {
-        case 1:
-          return 'http://microblog.dev.web.nd';
-        case 2:
-          return 'http://microblog.debug.web.nd';
-        case 4:
-          return 'http://microblog.web.sdp.101.com';
-        default:
-          return util.LOC_ORIGIN;
-      }
-    })();
+  // util.MB_API_ORIGIN = (function() {
+  //   switch (util.ENV) {
+  //     case 1:
+  //       return 'http://microblog.dev.web.nd';
+  //     case 2:
+  //       return 'http://microblog.debug.web.nd';
+  //     case 4:
+  //       return 'http://microblog.web.sdp.101.com';
+  //     default:
+  //       return util.LOC_ORIGIN;
+  //   }
+  // })();
+
+  /**
+   * @constant {string} IN_API_ORIGIN
+   */
+  // util.IN_API_ORIGIN = (function() {
+  //   switch (util.ENV) {
+  //     case 1:
+  //       return 'http://interaction.dev.web.nd';
+  //     case 2:
+  //       return 'http://interaction.debug.web.nd';
+  //     case 4:
+  //       return 'http://interaction.web.sdp.101.com';
+  //     default:
+  //       return util.LOC_ORIGIN;
+  //   }
+  // })();
 
   /**
    * @constant {string} UC_API_ORIGIN
@@ -104,7 +120,15 @@ module.exports = function(util) {
   /**
    * @constant {boolean} 请求代理白名单
    */
-  util.PROXY_WHITELIST = [util.MB_API_ORIGIN];
+  util.PROXY_WHITELIST = [
+    // util.MB_API_ORIGIN,
+    // util.IN_API_ORIGIN
+  ];
+
+  /**
+   * @constant {boolean} 开启接口请求缓存（浏览器机制）
+   */
+  util.CACHE_ENABLED = false;
 
   /**
    * @constant {string} DATETIME_FORMAT 默认的时间日期格式
@@ -122,30 +146,35 @@ module.exports = function(util) {
   util.TIME_FORMAT = 'hh:mm:ss';
 
   /**
+   * @constant {string} TOAST_DURATION 默认提示信息显示毫秒数
+   */
+  util.TOAST_DURATION = 3000;
+
+  /**
    * @constant {array} SIDEBAR_ROUTES 侧栏路由
    */
   util.SIDEBAR_ROUTES = [{
-      icon: 'rbac',
-      title: '权限管理',
-      routes: [{
-        route: 'rbac/role',
-        title: '角色列表',
-        // 用于权限控制
-        level: '8'
-      }, {
-        route: 'rbac/api',
-        title: '接口列表',
-        // 用于权限控制
-        level: '9'
-      }]
-    }];
+    icon: 'rbac',
+    title: '权限管理',
+    routes: [{
+      route: 'rbac/role',
+      title: '角色列表',
+      // 用于权限控制
+      level: '=8'
+    }, {
+      route: 'rbac/api',
+      title: '接口列表',
+      // 用于权限控制
+      level: '=9'
+    }]
+  }];
 
   /**
    * @constant {array}  HEADER_ROUTES 顶部路由
    */
   util.HEADER_ROUTES = [{
-      route: 'logout',
-      title: '退出'
-    }];
+    route: 'logout',
+    title: '退出'
+  }];
 
 };

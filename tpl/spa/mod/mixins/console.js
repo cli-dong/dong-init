@@ -16,7 +16,7 @@ module.exports = function(util) {
       util.layout.render('msgbox', {
         msg: msg,
         close: cb,
-        timeout: ms || 1000,
+        timeout: ms || util.TOAST_DURATION,
         level: 'warning'
       });
     },
@@ -25,7 +25,7 @@ module.exports = function(util) {
       util.layout.render('msgbox', {
         msg: msg,
         close: cb,
-        timeout: ms || 1000,
+        timeout: ms || util.TOAST_DURATION,
         level: 'danger'
       });
     },
@@ -34,7 +34,7 @@ module.exports = function(util) {
       util.layout.render('msgbox', {
         msg: msg,
         close: cb,
-        timeout: ms || 1000,
+        timeout: ms || util.TOAST_DURATION,
         level: 'info'
       });
     },
@@ -43,13 +43,9 @@ module.exports = function(util) {
       util.layout.render('msgbox', {
         msg: msg,
         close: cb,
-        timeout: ms || 1000,
+        timeout: ms || util.TOAST_DURATION,
         level: 'success'
       });
-    },
-
-    progress: function() {
-      // todo
     }
 
   };

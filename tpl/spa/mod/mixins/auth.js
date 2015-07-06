@@ -34,12 +34,13 @@ module.exports = function(util) {
 
   function convert(apis) {
     return apis && apis.map(function(api) {
-      return api.level;
-    }).join(',');
+      return api.module + '#' + api.level;
+    }) || [];
   }
 
-  function getRegexp(level) {
-    return new RegExp('(,|\\b)' + level);
+  function hasLevel(level, module, apis) {
+    // 精确匹配
+    return !!(apis && apis.indexOf(module + '#' + level) !== -1);
   }
 
   util.auth = {
@@ -52,9 +53,9 @@ module.exports = function(util) {
      * @param  {string}  level 接口标识符或权限等级
      * @return {boolean}
      */
-    hasAuth: function(level) {
+    hasAuth: function(level, module) {
       // 未登录，或登录失效
-      if (!this.isLogin) {
+      if (!this.isLogin()) {
         return false;
       }
 
@@ -69,15 +70,18 @@ module.exports = function(util) {
         return false;
       }
 
-      var apis = auth.apis;
-
       // 接口标识符
       // 支持“|”分隔，代表“或”
       return level.split('|').some(function(level) {
+        var exact;
+        if (level.charAt(0) === '=') {
+          exact = true;
+          level = level.substring(1);
+        }
         if (/\D/.test(level)) {
-          return apis && getRegexp(level).test(apis);
+          return hasLevel(level, module, auth.apis);
         } else {
-          return auth.level >= level;
+          return exact ? auth.level === +level : auth.level >= level;
         }
       });
     },
@@ -161,8 +165,15 @@ module.exports = function(util) {
       this.setAuth(null);
     },
 
-    _getAccessToken: function() {
+    getAccessToken: function() {
       return this.getTokens('access_token');
+    },
+
+    getAuthentization: function(method, url, host) {
+      return ['MAC id="' + this.getAccessToken() + '"',
+        'nonce="' + this._getNonce() + '"',
+        'mac="' + this._getMac(method, url, host) + '"'
+      ].join(',');
     },
 
     _getMacContent: function(method, url, host) {
@@ -176,13 +187,6 @@ module.exports = function(util) {
 
     _getNonce: function() {
       return (this.nonce = nonce());
-    },
-
-    getAuthentization: function(method, url, host) {
-      return ['MAC id="' + this._getAccessToken() + '"',
-        'nonce="' + this._getNonce() + '"',
-        'mac="' + this._getMac(method, url, host) + '"'
-      ].join(',');
     }
 
   };

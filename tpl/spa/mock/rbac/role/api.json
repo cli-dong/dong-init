@@ -2,30 +2,34 @@
   "/v0.1/roles/145/apis": {
     "GET": {
       "items": [{
-        "level": "role/patch",
-        "api": "[PATCH]roles/{role_id}",
-        "name": "修改角色"
+        "id": "558bc229fc0f864e07302971",
+        "api": "[GET]/mng_keywords/forbid_publish",
+        "name": "获取禁止发布的关键词",
+        "level": "keyword/forbid",
+        "module": "microblog"
       }, {
-        "level": "role",
-        "api": "[GET]roles",
-        "name": "角色列表"
-      }, {
-        "level": "api/post",
-        "api": "[POST]apis",
-        "name": "新增接口"
-      }, {
-        "level": "api/delete",
-        "api": "[DELETE]apis",
-        "name": "删除接口"
-      }, {
-        "level": "api",
-        "api": "[GET]apis",
-        "name": "接口列表"
+        "id": "558bc229fc0f864e07302972",
+        "api": "[POST]/mng_keywords/forbid_publish",
+        "name": "添加禁止发布的关键词",
+        "level": "keyword/forbid/post",
+        "module": ""
       }]
     },
 
     "POST": {
-      "message": "POST OK"
+      "items": [{
+        "id": "558bc229fc0f864e07302971",
+        "api": "[GET]/mng_keywords/forbid_publish",
+        "name": "获取禁止发布的关键词",
+        "level": "keyword/forbid",
+        "module": "microblog"
+      }, {
+        "id": "558bc229fc0f864e07302972",
+        "api": "[POST]/mng_keywords/forbid_publish",
+        "name": "添加禁止发布的关键词",
+        "level": "keyword/forbid/post",
+        "module": ""
+      }]
     },
 
     "PATCH": {

@@ -1,6 +1,20 @@
 'use strict';
 
+var UcTokenModel = require('../../mod/model/uc/token');
+
 module.exports = function(util) {
-  util.auth.destroy();
-  util.redirect('login');
+  var accessToken = util.auth.getAccessToken();
+
+  function done() {
+    util.auth.destroy();
+    util.redirect('login');
+  }
+
+  if (accessToken) {
+    new UcTokenModel()
+      .DELETE(accessToken)
+      .always(done);
+  } else {
+    done();
+  }
 };

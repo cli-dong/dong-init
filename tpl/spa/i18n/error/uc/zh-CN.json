@@ -1,5 +1,5 @@
 {
-  "UC/INVALID_ARGUMENT": "无效参数(格式不对,长度过长或过短等)",
+  "UC/INVALID_ARGUMENT": "无效参数（格式不对，长度过长或过短等）",
   "UC/NONCE_INVALID": "Nonce串无效",
   "UC/AUTH_INVALID_TOKEN": "无效的授权",
   "UC/AUTH_TOKEN_EXPIRED": "授权已过期",

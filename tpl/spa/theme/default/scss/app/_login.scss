@@ -1,4 +1,14 @@
-// login
+.iconfont-user-o {
+  &:before {
+    content: '\e612';
+  }
+}
+
+.iconfont-lock-o {
+  &:before {
+    content: '\e62b';
+  }
+}
 
 .unauthed {
 
@@ -28,6 +38,7 @@
   #container {
     position: relative;
     width: rem(40);
+    min-width: rem(40);
     height: auto;
     // overflow: hidden;
     margin: 0 auto;
@@ -80,7 +91,7 @@
   }
 
   #main {
-    padding-left: rem(1);
+    margin-left: 0;
     height: auto;
   }
 

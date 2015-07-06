@@ -13,13 +13,11 @@
   max-width: rem(32);
   min-width: rem(24);
   box-shadow: 0 0 rem(0.5) rgba(0, 0, 0, 0.3);
-
   .msg {
     word-break: break-all;
     word-wrap: break-word;
     text-align: center;
   }
-
   .close {
     cursor: pointer;
     float: right;
@@ -31,7 +29,6 @@
     color: lighten($black, 60);
     background-color: $white;
     @include border-radius(50%);
-
     &:hover {
       color: lighten($black, 20);
     }
@@ -57,4 +54,3 @@
   color: $text_danger;
   background-color: $bg_danger;
 }
-

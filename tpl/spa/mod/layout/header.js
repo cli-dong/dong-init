@@ -52,7 +52,7 @@ exports.render = function(util/*, model*/) {
     model: {
       title: util.SITE_TITLE,
       authed: authed,
-      userdata: util.auth.getAuth('userinfo'),
+      userdata: util.auth.getAuth('user_info'),
       routes: authed ? util.HEADER_ROUTES : null
     }
   }).render();

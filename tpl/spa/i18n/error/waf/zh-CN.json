@@ -1,5 +1,5 @@
 {
-  "WAF/AUTH_INVALID_TIMESTAMP": "无效的时间戳，当时间戳与系统的差异大于5分钟后，产生该错误，客户端需要进行校时操作。",
+  "WAF/AUTH_INVALID_TIMESTAMP": "无效的时间戳，当时间戳与系统的差异大于 5 分钟后，产生该错误，客户端需要进行校时操作。",
   "WAF/AUTH_INVALID_TOKEN": "无效的授权（如 token 不存在、需要 mac 签名、mac 签名无效、nonce 无效、重复提交等）",
   "WAF/AUTH_TOKEN_EXPIRED": "授权已过期",
   "WAF/BAD_GATEWAY": "无效网关",

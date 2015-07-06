@@ -7,23 +7,21 @@ var datetime = require('nd-datetime');
 
 var util = require('../../../../../mod/util');
 
-var rbacUserRoleModel = require('../../../../../mod/model/rbac/user/role');
+var RbacUserRoleModel = require('../../../../../mod/model/rbac/user/role');
 
 module.exports = function() {
   var plugin = this,
     host = plugin.host,
     uniqueId;
 
-  // 列表
-  rbacUserRoleModel.on('all', function(type, options) {
-    options.replacement = {
-      'user_id': uniqueId
-    };
-  });
-
   function makeGrid() {
     return new Grid($.extend(true, {
-      proxy: rbacUserRoleModel,
+      proxy: new RbacUserRoleModel()
+        .on('all', function(type, options) {
+          options.replacement = {
+            'user_id': uniqueId
+          };
+        }),
       mode: 2,
       uniqueId: 'role_id',
       entryKey: null,
@@ -98,7 +96,8 @@ module.exports = function() {
 
     // 面包屑导航
     util.bread.push({
-      route: null,
+      title: host.getItemDataById(uniqueId, true)['nick_name']
+    }, {
       title: '角色列表'
     });
 
@@ -111,7 +110,7 @@ module.exports = function() {
     }
 
     // 面包屑导航
-    util.bread.pop();
+    util.bread.splice(-2);
 
     grid.destroy();
     delete plugin.exports;

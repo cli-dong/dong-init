@@ -34,6 +34,12 @@ module.exports = function(util) {
 
   util.route = new Router();
 
+  util.redirect = function(route) {
+    setTimeout(function() {
+      util.route.setRoute(route);
+    }, 80);
+  };
+
   util.route.mount({
     '([^!]+)[!]?(.+)?': function(id) {
       if (util.auth.isLogin()) {
@@ -71,11 +77,5 @@ module.exports = function(util) {
   });
 
   util.route.init();
-
-  util.redirect = function(route) {
-    setTimeout(function() {
-      util.route.setRoute(route);
-    }, 80);
-  };
 
 };

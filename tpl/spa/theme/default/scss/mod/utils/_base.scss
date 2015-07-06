@@ -1,0 +1,45 @@
+html, body {
+  height: 100%;
+}
+
+html {
+  font: rem(1.4) Tahoma, Arial, Helvetica, "Microsoft YaHei", "宋体", sans-serif;
+  overflow: hidden;
+}
+
+body {
+  font: #{rem(1.4)}/1.5 Tahoma, Arial, Helvetica, "Microsoft YaHei", "宋体", sans-serif;
+  color: lighten($black, 20);
+  background-color: darken($white, 10);
+
+  ::-webkit-scrollbar {
+    width: rem(0.3);
+    height: rem(1);
+    background-color: $scrollbar_color;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: $scrollbar_thumb_color;
+  }
+  ::-webkit-scrollbar-button {
+    height: 0;
+    width: 0;
+    background-color: transparent;
+  }
+}
+
+input, textarea, keygen, select, button {
+  font: #{rem(1.4)}/1.5 Tahoma, Arial, Helvetica, "Microsoft YaHei", "宋体", sans-serif;
+  color: lighten($black, 20);
+}
+
+a {
+
+  &:link {
+    color: lighten($black, 20);
+    text-decoration: none;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
