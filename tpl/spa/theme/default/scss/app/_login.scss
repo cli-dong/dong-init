@@ -11,10 +11,9 @@
 }
 
 .unauthed {
-
   body {
     background-color: #E6E8EB;
-
+    @include user-select(none);
     &:before {
       content: '';
       position: absolute;
@@ -23,7 +22,6 @@
       height: 383px;
       background: #2CB1ED url($image_url + 'bg.png') 50% 100% no-repeat;
     }
-
     &:after {
       content: '';
       position: absolute;
@@ -34,7 +32,6 @@
       background: #A4E3FF url($image_url + 'road.png') 0% 50% repeat-x;
     }
   }
-
   #container {
     position: relative;
     width: rem(40);
@@ -44,7 +41,6 @@
     margin: 0 auto;
     padding-top: 300px;
     background: none;
-
     &:before {
       content: '';
       position: absolute;
@@ -54,7 +50,6 @@
       height: 204px;
       background: url($image_url + 'login.png') 50% 0 no-repeat;
     }
-
     &.focused {
       &:before {
         top: 104px;
@@ -63,85 +58,85 @@
       }
     }
   }
-
   #header {
     position: absolute;
-
+    height: rem(6);
     h1 {
-      width: 100%;
-      background: $white;
+      width: $sidebar_width;
+      background: transparent;
+      @include transition(none);
+      a {
+        padding-left: rem(2);
+        height: rem(6);
+        line-height: rem(6);
+        background: none;
+        font-weight: normal;
+      }
     }
-
-    a {
-      padding-left: 0;
-      height: rem(6);
-      line-height: rem(6);
-      text-align: center;
-      color: $orange;
-      font-size: rem(2.4);
-      background: none;
+    .no-i18n {
+      h1 {
+        background: $white;
+      }
+      a {
+        text-align: center;
+        color: $orange;
+        font-size: rem(2.4);
+      }
+    }
+    .wrapper {
+      padding-top: rem(0.5);
+      padding-right: rem(1);
+      @include transition(none);
     }
   }
-
   #wrapper {
     padding-top: rem(6);
     height: auto;
     background: $white;
     box-shadow: 0 0 rem(1) rgba(0, 0, 0, 0.3);
   }
-
   #main {
     margin-left: 0;
     height: auto;
+    @include transition(none);
   }
-
   #sidebar {
     display: none;
   }
-
 }
 
 .ui-form-login {
   padding: rem(1);
-
-  .ui-form-buttons,
-  .ui-form-item {
+  .ui-form-buttons, .ui-form-item {
+    margin: 0 0 rem(1) 0;
     padding: 0;
   }
-
   .ui-form-input {
     padding: rem(1) rem(1.5);
+    min-height: rem(4.4);
     font-size: rem(1.6);
   }
-
   .ui-form-icon-item {
-    .ui-form-input,
-    .ui-form-textarea,
-    .ui-form-static {
+    .ui-form-input, .ui-form-textarea, .ui-form-static {
       padding-left: 30px;
     }
   }
-
   .ui-form-icon {
     padding: 10px;
   }
-
   .ui-form-button {
     width: 100%;
     height: rem(4.4);
     padding: rem(1) rem(3);
     font-size: rem(1.8);
     background-color: $orange;
-
     &:hover {
       background-color: darken($orange, 10);
     }
   }
-
   .ui-form-explain {
     margin: -#{rem(4.3)} rem(0.1) 0 0;
     padding: rem(0.9) rem(1.5) rem(0.9) rem(0.9);
     font-size: rem(1.6);
   }
-
 }

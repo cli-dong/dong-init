@@ -2,8 +2,9 @@
   &.ui-view-dialog {
     padding: rem(0.5) rem(1) rem(1);
 
-    .ui-form-item {
-      padding: 0;
+    .ui-form-item,
+    .ui-form-group {
+      margin: 0 0 rem(1) 0;
 
       > label {
         width: auto;

@@ -1,21 +1,36 @@
 <div class="{{classPrefix}}">
 <h1>
-  <a title="返回主页" href="/">{{title}}</a>
+  <a{{#if authed}} title="返回主页" href="/"{{/if}}>{{title}}</a>
 </h1>
-{{#if authed}}
 <div class="wrapper">
+{{#if authed}}
+  <button class="iconfont iconfont-toggle"></button>
+{{/if}}
   <ul>
+    {{#if i18n}}
+      <li class="route-i18n">
+        <select data-role="i18n">
+        {{#each i18n}}
+          <option value="{{value}}"{{#if selected}} selected{{/if}}>{{text}}</option>
+        {{/each}}
+        </select>
+      </li>
+    {{/if}}
+{{#if authed}}
     {{#if userdata}}
       <li class="route-me">
-        <a href="javascript:;" data-role="me">{{userdata.nick_name}}</a>
+        <a href="javascript:;" data-role="me">
+          <img class="avatar" src="{{userdata.avatar}}" onerror="this.src=util.BLANK">
+          <span>{{userdata.nick_name}}</span>
+        </a>
       </li>
     {{/if}}
     {{#each routes}}
-      <li class="route-{{route}}" data-route="{{route}}">
-        <a href="/#/{{route}}">{{title}}</a>
+      <li class="route-{{route}}">
+        <a href="/#/{{route}}" data-route="{{route}}">{{title}}</a>
       </li>
     {{/each}}
+{{/if}}
   </ul>
 </div>
-{{/if}}
 </div>

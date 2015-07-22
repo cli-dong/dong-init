@@ -9,6 +9,18 @@ var msgMap = require('../../msg/error.json');
 
 module.exports = function(util) {
 
+  function addParam(url, params) {
+    var arr = Object.keys(params).map(function(key) {
+      return key + '=' + params[key];
+    }).join('&');
+
+    if (!arr) {
+      return url;
+    }
+
+    return url + (url.indexOf('?') !== -1 ? '&' : '?') + arr;
+  }
+
   function getMsg(data) {
     if (data && data.code && (data.code in msgMap)) {
       return msgMap[data.code];
@@ -45,11 +57,13 @@ module.exports = function(util) {
       fail: fail,
       always: always,
       module: null,
-      baseUri: []
-        // uri: null,
-        // params: null, //[]
-        // additional: null, //{}
-        // replacement: null, //{}
+      baseUri: [],
+      // 默认
+      uriVar: 'id'
+      // uri: null,
+      // params: null, //[]
+      // additional: null, //{}
+      // replacement: null, //{}
     },
 
     request: function(options) {
@@ -113,7 +127,7 @@ module.exports = function(util) {
       var baseUri = options.baseUri;
 
       // 存在白名单
-      if (util.PROXY_WHITELIST && util.PROXY_WHITELIST.length) {
+      if (util.PROXY_WHITELIST) {
         // 不在白名单
         if (util.PROXY_WHITELIST.indexOf(baseUri[0]) === -1) {
           return;
@@ -128,7 +142,7 @@ module.exports = function(util) {
       // 开始设置 dispatcher
 
       var api = '/' + baseUri[2];
-      var uriVar = this.get('uriVar');
+      var uriVar;
       var replacement = options.replacement;
 
       if (options.uri) {
@@ -143,6 +157,14 @@ module.exports = function(util) {
         replacement[uriVar] = options.uri;
       }
 
+      if (options.data && !/^POST|PATCH|PUT$/i.test(options.type)) {
+        api = addParam(api, options.data);
+      }
+
+      if (options.additional) {
+        api = addParam(api, options.additional);
+      }
+
       var dispatcher = JSON.stringify({
         'host': baseUri[0].replace(/^(?:https?:)?\/\//i, ''),
         'ver': baseUri[1],
@@ -151,9 +173,9 @@ module.exports = function(util) {
         'module': this.get('module')
       });
 
-      // http://remote-api to http://locale-proxy
       baseUri[0] = util.LOC_ORIGIN;
-      baseUri[2] = 'dispatcher/' + baseUri[2];
+      baseUri[1] = util.PROXY_VERSION;
+      baseUri[2] = util.PROXY_PREFIX + '/' + baseUri[2];
 
       return dispatcher;
     },

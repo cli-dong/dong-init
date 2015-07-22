@@ -7,6 +7,8 @@ if (!window.XMLHttpRequest ||
   alert('还未支持您当前的浏览器' +
     ((Browser.browser === 'IE' && Browser.version < 10) ?
       '，请采用 IE10 或以上版本' : ''));
+  // redirect
+  location.href = '/browser';
 }
 
 var util = require('./mod/util');
@@ -16,6 +18,7 @@ window.util = util;
 
 require('./mod/mixins/dollar')(util);
 require('./mod/mixins/unique')(util);
+require('./mod/mixins/avatar')(util);
 require('./mod/mixins/session')(util);
 require('./mod/mixins/storage')(util);
 require('./mod/mixins/const')(util);

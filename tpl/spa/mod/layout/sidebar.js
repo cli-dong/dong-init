@@ -15,10 +15,9 @@ var Sidebar = Widget.extend({
 var instance;
 
 exports.render = function(util, id) {
-  var isLogin = util.auth.isLogin();
   var folders = [];
 
-  if (isLogin) {
+  if (util.auth.isLogin()) {
     folders = util.SIDEBAR_ROUTES;
 
     if (util.RBAC_ENABLED) {
@@ -66,8 +65,16 @@ exports.render = function(util, id) {
   instance = new Sidebar({
     parentNode: '#sidebar',
     model: {
-      folders: folders,
-      visible: isLogin
+      folders: folders
+    },
+    events: {
+      'click [data-route]': function(e) {
+        var route = e.currentTarget.getAttribute('data-route');
+        if (route === util.getPath()) {
+          e.preventDefault();
+          util.redirect(route + '!');
+        }
+      }
     }
   }).render();
 };

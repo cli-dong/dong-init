@@ -1,8 +1,9 @@
 .ui-calendar-time {
   padding-top: rem(1);
   padding-bottom: rem(1);
-  border-top: 1px solid #dadada;
-  border-bottom: 1px solid #dadada;
+  border-top: 1px solid darken($white, 10);
+  border-bottom: 1px solid darken($white, 10);
+  text-align: center;
 
   div {
     @include inline-block();

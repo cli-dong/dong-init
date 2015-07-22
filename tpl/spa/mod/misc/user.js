@@ -1,26 +1,35 @@
 'use strict';
 
 var util = require('../util');
-var UcOrgUser = require('../model/uc/org/user');
+var UcSearch = require('../model/uc/search');
+var UcUser = require('../model/uc/user');
 
-var users;
 var waiting;
-var ucOrgUser = new UcOrgUser();
 
 var User = module.exports = {
+
   // 获取用户数据
   getUsers: function(query, done) {
-    // 如果已在内存中
-    if (users) {
-      return done(users);
+    if (!query) {
+      return done([]);
+    }
+
+    // 'user_id [nick_name]'
+    if (/^\d+ /.test(query)) {
+      return done([]);
     }
 
     // 如果已在本地存储中
     var orgId = util.auth.getAuth('user_info', 'org_exinfo', 'org_id');
-    var key = 'USERS-' + orgId;
 
-    users = util.session.get(key);
+    if (!orgId) {
+      return done([]);
+    }
 
+    var key = ['USERS', orgId, query].join('-');
+    var users = util.session.get(key);
+
+    // 如果已在内存中
     if (users) {
       return done(users);
     }
@@ -31,51 +40,66 @@ var User = module.exports = {
       }, 500);
     }
 
-    ucOrgUser.on('GET', function(options) {
-      options.replacement = {
-        'org_id': orgId
-      };
-    });
-
     waiting = true;
 
-    // 获取组织用户数据（全量）
-    ucOrgUser.LIST({
+    // 搜索用户
+    new UcSearch()
+    .LIST({
+      replacement: {
+        'org_id': orgId,
+        'node_id': 0
+      },
       data: {
         $offset: 0,
-        $limit: 10000
+        $limit: 10,
+        name: query
       }
-    }).done(function(data) {
+    })
+    .done(function(data) {
       if (data.items && data.items.length) {
         users = data.items.map(function(user) {
           return {
             value: user['user_id'],
             label: user['user_id'] + ' ' + user['nick_name'],
-            alias: [user['nick_name_full'], user['nick_name_short'], user['nick_name']]
+            alias: [
+              user['nick_name_full'],
+              user['nick_name_short'],
+              user['nick_name'],
+              user['org.org_user_code'],
+              user['org.real_name']
+            ]
           };
         });
         done(users);
         util.session.set(key, users);
       } else {
-        console.error('无法获取用户列表');
+        done([]);
       }
-    }).fail(function() {
-      console.error('无法获取用户列表');
-    }).always(function() {
+    })
+    .fail(function() {
+      done([]);
+    })
+    .always(function() {
       waiting = false;
     });
   },
 
   getUser: function(id, done) {
-    this.getUsers(null, function(users) {
-      var nickname;
-      users.some(function(user) {
-        if ('' + user.value === '' + id) {
-          nickname = user.alias[2];
-          return true;
-        }
-      });
-      done(nickname);
+    var key = ['USER', id].join('-');
+    var val = util.session.get(key);
+
+    if (val) {
+      return done(val);
+    }
+
+    new UcUser()
+    .GET(id)
+    .done(function(data) {
+      done(data);
+      util.session.set(key, data);
+    })
+    .fail(function() {
+      done({});
     });
   }
 };

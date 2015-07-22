@@ -10,6 +10,10 @@ module.exports = function(util) {
   util.DEBUG = 2;
   // 生产
   util.PRODUCTION = 4;
+  // 预生产
+  util.PREPRODUCTION = 8;
+  // 压测
+  util.PRESSURE = 16;
 
   /**
    * @constant {string} SITE_TITLE
@@ -39,37 +43,71 @@ module.exports = function(util) {
         if (/\.debug\.web\.nd$/.test(util.LOC_HOSTNAME)) {
           return util.DEBUG;
         }
+        if (/\.qa\.web\.sdp\.101\.com$/.test(util.LOC_HOSTNAME)) {
+          return util.PRESSURE;
+        }
+        if (/\.beta\.web\.sdp\.101\.com$/.test(util.LOC_HOSTNAME)) {
+          return util.PREPRODUCTION;
+        }
         return util.PRODUCTION;
     }
   })();
 
   /**
-   * @constant {string} MB_API_ORIGIN
+   * @constant {string} LO_API_ORIGIN
    */
-  // util.MB_API_ORIGIN = (function() {
+  // util.LO_API_ORIGIN = (function() {
   //   switch (util.ENV) {
-  //     case 1:
-  //       return 'http://microblog.dev.web.nd';
-  //     case 2:
-  //       return 'http://microblog.debug.web.nd';
-  //     case 4:
-  //       return 'http://microblog.web.sdp.101.com';
+  //     case util.DEVELOPMENT:
+  //       return 'http://lottery.dev.web.nd';
+  //     case util.DEBUG:
+  //       return 'http://lottery.debug.web.nd';
+  //     case util.PRODUCTION:
+  //       return 'http://lottery.web.sdp.101.com';
+  //     case util.PREPRODUCTION:
+  //       return 'http://lottery.beta.web.sdp.101.com';
+  //     case util.PRESSURE:
+  //       return 'http://lottery.qa.web.sdp.101.com';
   //     default:
   //       return util.LOC_ORIGIN;
   //   }
   // })();
 
   /**
-   * @constant {string} IN_API_ORIGIN
+   * @constant {string} MB_API_ORIGIN
    */
-  // util.IN_API_ORIGIN = (function() {
+  util.MB_API_ORIGIN = (function() {
+    switch (util.ENV) {
+      case util.DEVELOPMENT:
+        return 'http://microblog.dev.web.nd';
+      case util.DEBUG:
+        return 'http://microblog.debug.web.nd';
+      case util.PRODUCTION:
+        return 'http://microblog.web.sdp.101.com';
+      case util.PREPRODUCTION:
+        return 'http://microblog.beta.web.sdp.101.com';
+      case util.PRESSURE:
+        return 'http://microblog.qa.web.sdp.101.com';
+      default:
+        return util.LOC_ORIGIN;
+    }
+  })();
+
+  /**
+   * @constant {string} PA_API_ORIGIN
+   */
+  // util.PA_API_ORIGIN = (function() {
   //   switch (util.ENV) {
-  //     case 1:
-  //       return 'http://interaction.dev.web.nd';
-  //     case 2:
-  //       return 'http://interaction.debug.web.nd';
-  //     case 4:
-  //       return 'http://interaction.web.sdp.101.com';
+  //     case util.DEVELOPMENT:
+  //       return 'http://pack.dev.web.nd';
+  //     case util.DEBUG:
+  //       return 'http://pack.debug.web.nd';
+  //     case util.PRODUCTION:
+  //       return 'http://pack.web.sdp.101.com';
+  //     case util.PREPRODUCTION:
+  //       return 'http://pack.beta.web.sdp.101.com';
+  //     case util.PRESSURE:
+  //       return 'http://pack.qa.web.sdp.101.com';
   //     default:
   //       return util.LOC_ORIGIN;
   //   }
@@ -80,12 +118,16 @@ module.exports = function(util) {
    */
   util.UC_API_ORIGIN = (function() {
     switch (util.ENV) {
-      case 1:
-        return 'http://101uccenter.dev.web.nd';
-      case 2:
-        return 'http://101uccenter.debug.web.nd';
-      case 4:
+      case util.DEVELOPMENT:
+        return 'http://101uccenter.beta.web.sdp.101.com';
+      case util.DEBUG:
+        return 'http://101uccenter.beta.web.sdp.101.com';
+      case util.PRODUCTION:
         return 'https://aqapi.101.com';
+      case util.PREPRODUCTION:
+        return 'http://101uccenter.beta.web.sdp.101.com';
+      case util.PRESSURE:
+        return 'http://101uccenter.beta.web.sdp.101.com';
       default:
         return util.LOC_ORIGIN;
     }
@@ -96,12 +138,16 @@ module.exports = function(util) {
    */
   util.CS_API_ORIGIN = (function() {
     switch (util.ENV) {
-      case 1:
-        return 'http://sdpcs.dev.web.nd';
-      case 2:
-        return 'http://sdpcs.dev.web.nd';
-      case 4:
+      case util.DEVELOPMENT:
+        return 'http://betacs.101.com';
+      case util.DEBUG:
+        return 'http://betacs.101.com';
+      case util.PRODUCTION:
         return 'http://cs.101.com';
+      case util.PREPRODUCTION:
+        return 'http://betacs.101.com';
+      case util.PRESSURE:
+        return 'http://betacs.101.com';
       default:
         return util.LOC_ORIGIN;
     }
@@ -118,11 +164,21 @@ module.exports = function(util) {
   util.PROXY_ENABLED = true;
 
   /**
+   * @constant {boolean} 接口请求代理版本
+   */
+  util.PROXY_VERSION = 'v0.1';
+
+  /**
+   * @constant {boolean} 接口请求代理前缀
+   */
+  util.PROXY_PREFIX = 'dispatcher';
+
+  /**
    * @constant {boolean} 请求代理白名单
    */
   util.PROXY_WHITELIST = [
-    // util.MB_API_ORIGIN,
-    // util.IN_API_ORIGIN
+    // util.UC_API_ORIGIN,
+    // util.CS_API_ORIGIN
   ];
 
   /**
@@ -154,20 +210,37 @@ module.exports = function(util) {
    * @constant {array} SIDEBAR_ROUTES 侧栏路由
    */
   util.SIDEBAR_ROUTES = [{
-    icon: 'rbac',
-    title: '权限管理',
+    icon: 'demo',
+    title: '代码示例',
     routes: [{
-      route: 'rbac/role',
-      title: '角色列表',
-      // 用于权限控制
-      level: '=8'
+      route: 'demo/editor',
+      title: '富文本编辑器'
     }, {
-      route: 'rbac/api',
-      title: '接口列表',
-      // 用于权限控制
-      level: '=9'
+      route: 'demo/menu',
+      title: '多级菜单设置'
+    }, {
+      route: 'demo/tree',
+      title: '组织结构树'
     }]
   }];
+
+  if (util.RBAC_ENABLED) {
+    util.SIDEBAR_ROUTES.push({
+      icon: 'rbac',
+      title: '权限管理',
+      routes: [{
+        route: 'rbac/role',
+        title: '角色列表',
+        // 用于权限控制
+        level: '=8'
+      }, {
+        route: 'rbac/api',
+        title: '接口列表',
+        // 用于权限控制
+        level: '=9'
+      }]
+    });
+  }
 
   /**
    * @constant {array}  HEADER_ROUTES 顶部路由
@@ -176,5 +249,18 @@ module.exports = function(util) {
     route: 'logout',
     title: '退出'
   }];
+
+  /**
+   * @constant {object}  I18N 多语言对应
+   */
+  util.I18N = {
+    'zh-CN': '\u7b80\u4f53\u4e2d\u6587',
+    'en-US': 'English'
+  };
+
+  /**
+   * @constant {string}  透明图片
+   */
+  util.BLANK = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D';
 
 };

@@ -9,11 +9,33 @@
   .ui-form-item {
     @include inline-block();
     margin-bottom: 0;
+    margin-right: 0;
     padding: 0;
+    border: rem(0.1) solid darken($white, 20);
+
+    &.ui-form-item-error {
+      border-color: $red;
+    }
+
+    &.ui-form-item-focus {
+      border-color: $light_blue;
+    }
+
+    .ui-form-explain {
+      float: none;
+      margin: 0;
+      @include inline-block();
+    }
+
+    .ui-select-trigger {
+      border: none;
+    } 
   }
 
   .ui-form-input {
     @include inline-block();
+    border: none;
+    width: auto;
   }
 
   .ui-form-buttons {

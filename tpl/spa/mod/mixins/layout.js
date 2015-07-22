@@ -4,7 +4,6 @@ var partials = {
   header: require('../layout/header'),
   sidebar: require('../layout/sidebar'),
   footer: require('../layout/footer'),
-  msgbox: require('../layout/msgbox'),
   bread: require('../layout/bread'),
   rootnode: require('../layout/rootnode')
 };

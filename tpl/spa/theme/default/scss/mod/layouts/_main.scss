@@ -1,9 +1,16 @@
+.collapsed {
+  #main {
+    margin-left: rem(4.5);
+  }
+}
+
 #main {
   padding: rem(1);
   height: 100%;
   overflow: auto;
   box-sizing: border-box;
   margin-left: $sidebar_width;
+  @include transition(margin-left 200ms linear);
 
   &.route-loading {
     &:before {

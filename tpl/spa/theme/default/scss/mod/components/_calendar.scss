@@ -1,17 +1,20 @@
 $calendar_width: 238px;
 
 .ui-calendar {
-  position: absolute;
-  font: 16px/20px 'Xin Gothic', 'PT Sans', 'Hiragino Sans GB', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background: #f9f9f9;
-  border-collapse: collapse;
-  border-spacing: 0;
-  border: 1px solid darken($white, 10);
-  box-shadow: 0 1px rem(1) darken($white, 20);
-  text-align: center;
-  width: $calendar_width;
-  z-index: 10;
-  -webkit-user-select: none;
+  // position: absolute;
+  // font: 16px/20px 'Xin Gothic', 'PT Sans', 'Hiragino Sans GB', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  // background: #f9f9f9;
+  // border-collapse: collapse;
+  // border-spacing: 0;
+  // border: 1px solid darken($white, 10);
+  // box-shadow: 0 1px rem(1) darken($white, 20);
+  // text-align: center;
+  // width: $calendar_width;
+  // z-index: 10;
+  // -webkit-user-select: none;
+  .ui-tip-container {
+    padding: 0;
+  }
 }
 
 .ui-calendar-date,
@@ -22,7 +25,8 @@ $calendar_width: 238px;
 }
 
 .ui-calendar-panel {
-  width: $calendar_width;
+  text-align: center;
+  // width: $calendar_width;
   border-bottom: 1px solid darken($white, 10);
   // zoom: 1;
   @include clearfix();
@@ -31,6 +35,10 @@ $calendar_width: 238px;
   .year {
     width: 25%;
   }
+}
+
+.ui-calendar-container {
+  text-align: center;
 }
 
 // .ui-calendar-panel:after,

@@ -45,9 +45,9 @@ module.exports = function() {
 
       fields: [{
         name: 'user_id',
-        label: 'ID',
+        label: '用户',
         attrs: {
-          placeholder: '用户 ID',
+          placeholder: 'ID、用户名、昵称（全拼或简拼）等',
           maxlength: 30,
           size: 20,
           required: 'required'

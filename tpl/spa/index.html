@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<head lang="zh-cmn-Hans">
+<head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
@@ -9,6 +9,25 @@
   <meta http-equiv="Expires" content="0">
   <title></title>
   <link href="favicon.png" rel="icon">
+  <script>
+    if (!window.XMLHttpRequest ||
+      !('withCredentials' in (new window.XMLHttpRequest()))) {
+      (function(isZh) {
+        'use strict';
+        return isZh ? function() {
+          alert('还未支持您当前的浏览器' +
+        (document.documentMode ?
+          '，请采用 IE10 或以上版本' : ''));
+        } : function() {
+          alert('Unsupported browser' +
+        (document.documentMode ?
+          ', please use IE10 or above' : ''));
+          };
+      })(/^zh\-/.test(navigator.language || navigator.browserLanguage))();
+      // redirect
+      location.href = '/browser';
+    }
+  </script>
   <link rel="stylesheet" href="theme/default/css/index.css">
 </head>
 
@@ -32,7 +51,6 @@
 
   <div id="footer"></div>
 </div>
-
 <script src="lib/seajs/sea.js"></script>
 <script src="lib/config.js"></script>
 <script>

@@ -1,0 +1,31 @@
+{
+  "/v0.1/upload": {
+    "POST": {
+      "dentry_id": "0859943d-c334-4ed3-8f9c-c8fd270fac6c",
+      "service_id": "38942293-aa12-4d13-abf5-085abc79bcf2",
+      "parent_id": "fb9f256b-ff35-45e4-b829-9e88c84754e5",
+      "path": "/microblog/481036374425/secondarytile.png",
+      "type": 1,
+      "inode_id": "5ae42596-ef9c-4fd3-9e6c-68dff795f443",
+      "name": "secondarytile.png",
+      "scope": 1,
+      "uid": 2000209884,
+      "hits": 0,
+      "create_at": 1437473230280,
+      "update_at": 1437473230280,
+      "expire_at": 0,
+      "flag": 2,
+      "inode": {
+        "inode_id": "5ae42596-ef9c-4fd3-9e6c-68dff795f443",
+        "md5": "f794da20a79b40306479e6f047cf2354",
+        "size": 637,
+        "mime": "image/png",
+        "ext": ".png",
+        "meta": {},
+        "links": 1,
+        "ip": "221.228.89.31",
+        "create_at": 1437473230280
+      }
+    }
+  }
+}

@@ -1,4 +1,5 @@
 {
-  "ADMIN/INVALID_REQUEST": "非法请求，访问受限",
-  "ADMIN/FORBIDDEN": "用户权限不足，请求被拒绝"
+  "ADMIN/FORBIDDEN": "用户权限不足，请求被拒绝",
+  "ADMIN/INVALID_ARGUMENT": "无效参数（格式不对，长度过长或过短等）",
+  "ADMIN/INVALID_REQUEST": "非法请求，访问受限"
 }

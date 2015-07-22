@@ -12,7 +12,7 @@
   }
 
   .ui-form-item {
-    padding: 0;
+    margin: 0 0 rem(1) 0;
 
     &.required {
       > label {
@@ -25,7 +25,13 @@
 
   .ui-form-buttons {
     margin-top: rem(2);
+    padding: rem(2) 0 0 0;
+    text-align: center;
     border-top: 1px solid darken($white, 5);
+  }
+
+  .ui-form-button {
+    margin: 0 rem(0.5);
   }
 
 }

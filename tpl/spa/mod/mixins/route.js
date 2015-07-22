@@ -32,15 +32,19 @@ module.exports = function(util) {
     util.use(id, params);
   }
 
-  util.route = new Router();
+  var route = util.route = new Router();
 
-  util.redirect = function(route) {
+  util.redirect = function(value) {
     setTimeout(function() {
-      util.route.setRoute(route);
+      route.setRoute(value);
     }, 80);
   };
 
-  util.route.mount({
+  util.getPath = function() {
+    return route.getRoute().join(route.delimiter);
+  };
+
+  route.mount({
     '([^!]+)[!]?(.+)?': function(id) {
       if (util.auth.isLogin()) {
         if (id === 'login') {
@@ -56,7 +60,7 @@ module.exports = function(util) {
     }
   });
 
-  util.route.configure({
+  route.configure({
     before: function(id) {
       // 纯数字，左侧分类切换
       if (!isNaN(id)) {
@@ -65,7 +69,7 @@ module.exports = function(util) {
         return false;
       }
 
-      cleanup(id);
+      cleanup();
     },
     on: function(id, params) {
       startup(id, params);
@@ -76,6 +80,6 @@ module.exports = function(util) {
     }
   });
 
-  util.route.init();
+  route.init();
 
 };

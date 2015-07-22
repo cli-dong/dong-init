@@ -1,8 +1,27 @@
 'use strict';
 
 var debug = require('nd-debug');
+var Message = require('nd-message');
 
 module.exports = function(util) {
+
+  /*jshint maxparams:4*/
+  function render(msg, cb, ms, level) {
+    if (typeof cb === 'number') {
+      ms = cb;
+      cb = null;
+    }
+
+    return new Message({
+      parentNode: '#msgbox',
+      model: {
+        msg: msg,
+        close: cb,
+        timeout: ms || util.TOAST_DURATION,
+        level: level
+      }
+    }).render();
+  }
 
   util.console = {
 
@@ -13,39 +32,19 @@ module.exports = function(util) {
     },
 
     warn: function(msg, cb, ms) {
-      util.layout.render('msgbox', {
-        msg: msg,
-        close: cb,
-        timeout: ms || util.TOAST_DURATION,
-        level: 'warning'
-      });
+      return render(msg, cb, ms, 'warning');
     },
 
     error: function(msg, cb, ms) {
-      util.layout.render('msgbox', {
-        msg: msg,
-        close: cb,
-        timeout: ms || util.TOAST_DURATION,
-        level: 'danger'
-      });
+      return render(msg, cb, ms, 'danger');
     },
 
     info: function(msg, cb, ms) {
-      util.layout.render('msgbox', {
-        msg: msg,
-        close: cb,
-        timeout: ms || util.TOAST_DURATION,
-        level: 'info'
-      });
+      return render(msg, cb, ms, 'info');
     },
 
     success: function(msg, cb, ms) {
-      util.layout.render('msgbox', {
-        msg: msg,
-        close: cb,
-        timeout: ms || util.TOAST_DURATION,
-        level: 'success'
-      });
+      return render(msg, cb, ms, 'success');
     }
 
   };

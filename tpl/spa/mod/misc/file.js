@@ -6,7 +6,7 @@ var CsUploadModel = require('../model/cs/upload');
 var CsDownloadModel = require('../model/cs/download');
 var CsDentryModel = require('../model/cs/dentry');
 
-var storage = util.storage;
+var storage = util.session;
 
 var sessionKey = 'MISC-UPLOAD';
 var sessionObj;
@@ -15,7 +15,7 @@ var expires = 1800;
 
 var DENTRY_ID_PATTERN = /^[0-9a-f]{8}(\-[0-9a-f]{4}){3}\-[0-9a-f]{12}$/;
 
-var File = module.exports = {
+var Server = {
 
   session: function(callback) {
     var session = sessionObj;
@@ -44,7 +44,7 @@ var File = module.exports = {
   upload: function(callback) {
     var url = new CsUploadModel().get('baseUri').join('/');
 
-    File.session(function(data) {
+    Server.session(function(data) {
       if (data.session) {
         url += '?session=' + data.session;
       }
@@ -92,7 +92,7 @@ var File = module.exports = {
   },
 
   detail: function(file, callback) {
-    File.session(function(data) {
+    Server.session(function(data) {
       if (!data) {
         return callback(file);
       }
@@ -121,4 +121,9 @@ var File = module.exports = {
         });
     });
   }
+
+};
+
+module.exports = {
+  server: Server
 };

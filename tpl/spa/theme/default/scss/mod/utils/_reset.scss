@@ -21,3 +21,7 @@ article, footer, header, nav, section {
 button, input, textarea {
   outline: none;
 }
+
+:-ms-input-placeholder {
+	color: #999;
+}

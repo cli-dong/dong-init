@@ -1,4 +1,5 @@
 {
-  "ADMIN/INVALID_REQUEST": "Illegal request",
-  "ADMIN/FORBIDDEN": "Permission denied"
+  "ADMIN/FORBIDDEN": "Permission denied",
+  "ADMIN/INVALID_ARGUMENT": "The requested parameter is illegal",
+  "ADMIN/INVALID_REQUEST": "Illegal request"
 }

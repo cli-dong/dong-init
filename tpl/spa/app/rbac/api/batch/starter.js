@@ -1,12 +1,9 @@
 'use strict';
 
-var Grid = require('nd-grid');
 var FormExtra = require('nd-form-extra');
 
 var util = require('../../../../mod/util');
 var RbacApiBatchModel = require('../../../../mod/model/rbac/api/batch');
-
-var helpers = Grid.helpers;
 
 module.exports = function() {
   var plugin = this,
@@ -48,26 +45,15 @@ module.exports = function() {
       });
   }
 
-  // 添加按钮到顶部
-  (function(button) {
-    host.$(helpers.makePlace(button)).append(
-      helpers.makeButton({
-        role: 'batch-add',
-        text: '批量添加'
-      })
-    );
-  })(plugin.getOptions('button'));
-
-  host.delegateEvents({
-
-    'click [data-role="batch-add"]': function() {
-      if (!plugin.exports) {
-        plugin.exports = makeForm().render();
-      }
-
-      plugin.trigger('show', plugin.exports);
+  host.addGridAction(util.$.extend({
+    role: 'batch-add',
+    text: '批量添加'
+  }, plugin.getOptions('button')), function() {
+    if (!plugin.exports) {
+      plugin.exports = makeForm().render();
     }
 
+    plugin.trigger('show', plugin.exports);
   });
 
   host.before('destroy', function() {

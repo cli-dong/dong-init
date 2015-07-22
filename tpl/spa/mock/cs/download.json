@@ -1,0 +1,9 @@
+{
+  "/v0.1/download": {
+    "GET": {
+      "MOCKAPI": {
+        "redirect": "/theme/default/img/guide.png"
+      }
+    }
+  }
+}
